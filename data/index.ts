@@ -164,64 +164,6 @@ export const aboutWords: string = `I'm Amr, a passionate Front-End Web Developer
 
 export const projectsCards: ProjectCardsProps[] = [
   {
-    title: "Summertime Sadness",
-    description: "Lana Del Rey",
-    src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
-    ctaText: "See more",
-    ctaLink: "https://ui.aceternity.com/templates",
-    content: () => {
-      return `<p>
-          Lana Del Rey, an iconic American singer-songwriter, is celebrated for
-          her melancholic and cinematic music style. Born Elizabeth Woolridge
-          Grant in New York City, she has captivated audiences worldwide with
-          her haunting voice and introspective lyrics. <br /> <br /> Her songs
-          often explore themes of tragic romance, glamour, and melancholia,
-          drawing inspiration from both contemporary and vintage pop culture.
-        </p>`;
-    },
-  },
-  {
-    title: "Mitran Di Chhatri",
-    description: "Babbu Maan",
-    src: "https://assets.aceternity.com/demos/babbu-maan.jpeg",
-    ctaText: "See more",
-    ctaLink: "https://ui.aceternity.com/templates",
-    content: () => {
-      return `<p>
-          Babu Maan, a legendary Punjabi singer, is renowned for his soulful
-          voice and profound lyrics that resonate deeply with his audience. Born
-          in the village of Khant Maanpur in Punjab, India, he has become a
-          cultural icon in the Punjabi music industry. <br /> <br /> His songs
-          often reflect the struggles and triumphs of everyday life, capturing
-          the essence of Punjabi culture and traditions. With a career spanning
-          over two decades, Babu Maan has released numerous hit albums and
-          singles that have garnered him a massive fan following both in India
-          and abroad.
-        </p>`;
-    },
-  },
-
-  {
-    description: "My old portfolio",
-    title: "Amr's Portfolio",
-    src: "/p1.png",
-    ctaText: "See more",
-    ctaLink: "https://portfolio-amrkh.vercel.app/",
-    content: () => {
-      return `
-          Metallica, an iconic American heavy metal band, is renowned for their
-          powerful sound and intense performances that resonate deeply with
-          their audience. Formed in Los Angeles, California, they have become a
-          cultural icon in the heavy metal music industry. <br /> <br /> Their
-          songs often reflect themes of aggression, social issues, and personal
-          struggles, capturing the essence of the heavy metal genre. With a
-          career spanning over four decades, Metallica has released numerous hit
-          albums and singles that have garnered them a massive fan following
-          both in the United States and abroad.
-        `;
-    },
-  },
-  {
     title: "Tech Store",
     description: "An e-commerce website",
     src: "/p2.png",
@@ -254,7 +196,7 @@ export const testimonials: TestimonialsProps[] = [
   },
   {
     id: 2,
-    img: "/amr.jfif",
+    img: "",
     quote:
       "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
     name: "William Shakespeare",
