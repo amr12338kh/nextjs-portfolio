@@ -5,6 +5,8 @@ import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Amr's Portfolio",
@@ -52,6 +54,8 @@ export default function RootLayout({
               priority
             />
           </ThemeProvider>
+          <SpeedInsights />
+          <Analytics />
         </body>
       </html>
     </>
