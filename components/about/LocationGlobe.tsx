@@ -32,7 +32,6 @@ export const LocationGlobe = () => {
     const latitude = 30.0444; // Cairo latitude
 
     const { phi, theta } = locationToAngles(latitude, longitude);
-    console.log(`Phi: ${phi}, Theta: ${theta}`);
 
     let width = 0;
 

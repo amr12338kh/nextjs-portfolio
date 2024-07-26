@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { projectsCards } from "@/data";
 
@@ -69,11 +69,11 @@ export function ExpandableCard() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px] h-full min-[500px]:h-fit min-[500px]:max-h-[90%] flex flex-col bg-primary-foreground min-[500px]:rounded-3xl overflow-hidden"
+              className="w-full px-4 sm:px-6 max-w-[500px] h-full min-[500px]:h-fit min-[500px]:max-h-[90%] flex flex-col bg-primary-foreground min-[500px]:rounded-3xl overflow-hidden"
             >
               <motion.div
                 layoutId={`image-${active.title}-${id}`}
-                className="p-4 flex justify-center"
+                className="pt-8 sm:pt-10 flex justify-center"
               >
                 <Image
                   priority
@@ -84,18 +84,18 @@ export function ExpandableCard() {
                   className=" rounded-lg"
                 />
               </motion.div>
-              <div>
-                <div className="flex justify-between items-start p-4">
+              <div className="py-8 sm:py-10">
+                <div className="flex justify-between items-center flex-wrap gap-y-4">
                   <div className="">
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
-                      className="font-bold text-primary"
+                      className="font-bold text-xl text-primary"
                     >
                       {active.title}
                     </motion.h3>
                     <motion.p
                       layoutId={`description-${active.description}-${id}`}
-                      className=" text-muted-foreground"
+                      className="text-sm text-muted-foreground max-w-[180px] sm:max-w-full"
                     >
                       {active.description}
                     </motion.p>
@@ -111,17 +111,20 @@ export function ExpandableCard() {
                   </motion.a>
                 </div>
 
-                <div className="pt-4 relative px-4">
+                <div className="pt-5 relative">
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className=" text-muted-foreground text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    className=" text-muted-foreground text-base"
                   >
-                    {typeof active.content === "function"
-                      ? active.content()
-                      : active.content}
+                    <p className="flex flex-col gap-1">
+                      <span className="font-bold text-primary/90 text-lg">
+                        Quick Overview:
+                      </span>{" "}
+                      {active.content}
+                    </p>
                   </motion.div>
                 </div>
               </div>
@@ -131,7 +134,7 @@ export function ExpandableCard() {
       </AnimatePresence>
       <ul className="mx-auto w-full gap-4 grid grid-cols-1 min-[330px]:grid-cols-2 sm:flex sm:flex-col">
         {projectsCards.map((card, index) => (
-          <motion.div
+          <motion.li
             initial={{
               y: 50,
               opacity: 0,
@@ -156,7 +159,7 @@ export function ExpandableCard() {
                   height={100}
                   src={card.src}
                   alt={card.title}
-                  className="h-50 w-50 sm:h-16 sm:w-16 rounded-lg object-contain"
+                  className="h-50 w-50 sm:h-20 sm:w-20 rounded-lg object-contain"
                 />
               </motion.div>
               <div className="">
@@ -180,7 +183,7 @@ export function ExpandableCard() {
             >
               {card.ctaText}
             </motion.button>
-          </motion.div>
+          </motion.li>
         ))}
       </ul>
     </>

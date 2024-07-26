@@ -169,9 +169,8 @@ export const projectsCards: ProjectCardsProps[] = [
     src: "/p2.png",
     ctaText: "See more",
     ctaLink: "https://tech-store-ak.vercel.app/",
-    content: () => {
-      return `Tech Store is a sleek e-commerce platform showcasing my expertise in web development. Built with Next.js, Tailwind CSS, and Shadcn, this project offers a seamless shopping experience for tech enthusiasts. With dynamic page rendering, responsive design, and immersive visual effects, Tech Store represents the future of online retail, driven by innovation and excellence in web development`;
-    },
+    content:
+      "Tech Store is a sleek e-commerce platform showcasing my expertise in web development. Built with Next.js, Tailwind CSS, and Shadcn, this project offers a seamless shopping experience for tech enthusiasts. With dynamic page rendering, responsive design, and immersive visual effects, Tech Store represents the future of online retail, driven by innovation and excellence in web development",
   },
   {
     title: "CarsHub",
@@ -179,9 +178,8 @@ export const projectsCards: ProjectCardsProps[] = [
     src: "/p3.png",
     ctaText: "See more",
     ctaLink: "https://carshub-ak.vercel.app/",
-    content: () => {
-      return `Cars Hub epitomizes my expertise in modern web development, showcasing a sleek and dynamic platform for exploring the world of automobiles. Crafted with Next.js, Tailwind CSS, and Headless UI, this project embodies the synergy of cutting-edge technologies and meticulous design principles. Cars Hub redefines the online automotive experience, offering an immersive showcase of car listings, specifications, and comparison tools, all seamlessly integrated into a responsive and intuitive user interface.`;
-    },
+    content:
+      "Cars Hub epitomizes my expertise in modern web development, showcasing a sleek and dynamic platform for exploring the world of automobiles. Crafted with Next.js, Tailwind CSS, and Headless UI, this project embodies the synergy of cutting-edge technologies and meticulous design principles. Cars Hub redefines the online automotive experience, offering an immersive showcase of car listings, specifications, and comparison tools, all seamlessly integrated into a responsive and intuitive user interface.",
   },
 ];
 

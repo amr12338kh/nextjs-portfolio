@@ -136,7 +136,9 @@ export const ContactForm = () => {
             Please wait
           </Button>
         ) : (
-          <Button type="submit">Submit</Button>
+          <Button variant="big_g" type="submit" className="font-bold">
+            Submit
+          </Button>
         )}
       </form>
     </Form>

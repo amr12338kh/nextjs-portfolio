@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ModeToggle } from "../Themes/ModeToggle";
 import { Separator } from "../ui/separator";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Sidbar from "./Sidbar";
 import { lobbylLinks } from "@/data";
 

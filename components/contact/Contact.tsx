@@ -17,6 +17,7 @@ const Contact = () => {
             alt="contact"
             width={500}
             height={500}
+            priority={false}
           />
         </div>
         <div className="max-w-3/6 w-full">

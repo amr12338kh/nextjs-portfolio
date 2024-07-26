@@ -23,7 +23,7 @@ export interface ProjectCardsProps {
   src: string;
   ctaText: string;
   ctaLink: string;
-  content: () => {};
+  content: string;
 }
 
 export interface TestimonialsProps {

@@ -1,5 +1,5 @@
 import { skillsItems } from "@/data";
-import { InfiniteMovingCards } from "./ui/InfiniteMovingCards";
+import { InfiniteMovingCards } from "../ui/InfiniteMovingCards";
 import Image from "next/image";
 
 const TechStack = () => {
@@ -25,6 +25,7 @@ const TechStack = () => {
                 width={40}
                 height={40}
                 className={`${item.isDark && "dark:invert"}`}
+                priority={false}
               />
             </li>
           ))}

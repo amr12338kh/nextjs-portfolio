@@ -1,6 +1,6 @@
 import { footerLinks } from "@/data";
 import Link from "next/link";
-import { Spotify } from "../spotify/Spotify";
+import { Spotify } from "../Spotify";
 
 const Footer = () => {
   const date = Date.now();

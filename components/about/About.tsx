@@ -1,8 +1,7 @@
 "use client";
 
 import GridItems from "./GridItems";
-import { skillsItems, contactLinks, aboutWords } from "@/data";
-import { InfiniteMovingCards } from "./ui/InfiniteMovingCards";
+import { contactLinks, aboutWords } from "@/data";
 import { CodeXml, Cpu, MapPin, MessagesSquare, User } from "lucide-react";
 import { LocationGlobe } from "./LocationGlobe";
 import Link from "next/link";

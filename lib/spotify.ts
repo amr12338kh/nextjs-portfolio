@@ -1,80 +1,72 @@
+import axios from "axios";
+import querystring from "querystring";
 import {
-  NowPlayingItem,
   SpotifyAccessTokenResponse,
   SpotifyNowPlayingResponse,
+  NowPlayingItem,
 } from "@/types";
-import querystring from "querystring";
 
-// Define environment variables
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const NOW_PLAYING_ENDPOINT =
   "https://api.spotify.com/v1/me/player/currently-playing";
 
-const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-const client_secret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
-const refresh_token = process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN;
+const spotifyApi = axios.create({
+  baseURL: "https://api.spotify.com/v1",
+});
 
-const getAccessToken = async (): Promise<SpotifyAccessTokenResponse> => {
-  const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
+const getAccessToken = async (): Promise<string> => {
+  const basic = Buffer.from(
+    `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}:${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET}`
+  ).toString("base64");
 
-  const response = await fetch(TOKEN_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${basic}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: querystring.stringify({
-      grant_type: "refresh_token",
-      refresh_token,
-    }),
-  });
-
-  if (!response.ok) {
-    const text = await response.text();
-    console.error(`Failed to get access token: ${response.statusText}`, text);
-    throw new Error(`Failed to get access token: ${response.statusText}`);
-  }
-
-  return response.json();
-};
-
-const getNowPlaying = async (): Promise<SpotifyNowPlayingResponse | null> => {
-  const { access_token } = await getAccessToken();
-  const response = await fetch(NOW_PLAYING_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to get now playing: ${response.statusText}`);
-  }
-
-  return response.status === 204 ? null : response.json();
-};
-
-export default async function getNowPlayingItem(): Promise<NowPlayingItem | null> {
   try {
-    const response = await getNowPlaying();
-    if (!response) return null;
+    const response = await axios.post<SpotifyAccessTokenResponse>(
+      TOKEN_ENDPOINT,
+      querystring.stringify({
+        grant_type: "refresh_token",
+        refresh_token: process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN,
+      }),
+      {
+        headers: {
+          Authorization: `Basic ${basic}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
 
-    const albumImageUrl = response.item.album.images[0].url;
-    const artist = response.item.artists
-      .map((artist) => artist.name)
-      .join(", ");
-    const isPlaying = response.is_playing;
-    const songUrl = response.item.external_urls.spotify;
-    const title = response.item.name;
+    return response.data.access_token;
+  } catch (error) {
+    console.error("Error getting access token:", error);
+    throw new Error("Failed to get access token");
+  }
+};
+
+export const getNowPlaying = async (): Promise<NowPlayingItem | null> => {
+  try {
+    const accessToken = await getAccessToken();
+    spotifyApi.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${accessToken}`;
+
+    const response = await spotifyApi.get<SpotifyNowPlayingResponse>(
+      NOW_PLAYING_ENDPOINT
+    );
+
+    if (response.status === 204 || !response.data) {
+      return null;
+    }
+
+    const { item, is_playing } = response.data;
 
     return {
-      albumImageUrl,
-      artist,
-      isPlaying,
-      songUrl,
-      title,
+      albumImageUrl: item.album.images[0].url,
+      artist: item.artists.map((artist) => artist.name).join(", "),
+      isPlaying: is_playing,
+      songUrl: item.external_urls.spotify,
+      title: item.name,
     };
   } catch (error) {
-    console.error("Error fetching now playing item:", error);
+    console.error("Error fetching now playing:", error);
     return null;
   }
-}
+};
