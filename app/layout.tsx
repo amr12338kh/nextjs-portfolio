@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <>
       <html lang="en" suppressHydrationWarning>
+        <link rel="icon" href="/svg/main-logo-black.svg" />
         <head />
         <body className="relative">
           <ThemeProvider
