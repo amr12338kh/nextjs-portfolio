@@ -18,6 +18,8 @@ const Contact = () => {
             width={500}
             height={500}
             priority={false}
+            placeholder="blur"
+            blurDataURL="/svg/contact-bg.svg"
           />
         </div>
         <div className="max-w-3/6 w-full">

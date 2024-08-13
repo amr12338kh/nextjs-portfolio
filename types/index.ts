@@ -17,13 +17,19 @@ export interface SkillsItemsProps {
   isDark: boolean;
 }
 
-export interface ProjectCardsProps {
+export interface ExpandableCardProps {
+  items: ProjectsProps[];
+}
+export interface ProjectsProps {
+  id: number;
   title: string;
+  tagline: string;
+  image: string;
+  btnText: string;
+  link: string;
   description: string;
-  src: string;
-  ctaText: string;
-  ctaLink: string;
-  content: string;
+  tech: SkillsItemsProps[];
+  githubLink: string;
 }
 
 export interface TestimonialsProps {

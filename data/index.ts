@@ -1,7 +1,7 @@
 import {
   FooterProps,
   LinksProps,
-  ProjectCardsProps,
+  ProjectsProps,
   SkillsItemsProps,
   TestimonialsProps,
 } from "@/types";
@@ -162,24 +162,119 @@ export const aboutWords: string = `I'm Amr, a passionate Front-End Web Developer
             project into a seamless and dynamic user experience, you've
             come to the right place.`;
 
-export const projectsCards: ProjectCardsProps[] = [
+export const projectsCards: ProjectsProps[] = [
   {
-    title: "Tech Store",
-    description: "An e-commerce website",
-    src: "/p2.png",
-    ctaText: "See more",
-    ctaLink: "https://tech-store-ak.vercel.app/",
-    content:
-      "Tech Store is a sleek e-commerce platform showcasing my expertise in web development. Built with Next.js, Tailwind CSS, and Shadcn, this project offers a seamless shopping experience for tech enthusiasts. With dynamic page rendering, responsive design, and immersive visual effects, Tech Store represents the future of online retail, driven by innovation and excellence in web development",
+    id: 1,
+    title: "MegaMart",
+    tagline: "An e-commerce website",
+    image: "/p2.png",
+    btnText: "See more",
+    link: "https://megamart-ak.vercel.app/",
+    description:
+      "MegaMart is a sleek e-commerce platform showcasing my expertise in web development. Built with Next.js, Tailwind CSS, and Shadcn, this project offers a seamless shopping experience across a wide range of products. With dynamic page rendering and responsive design, MegaMart represents the future of online retail, driven by innovation and excellence in web development. The platform utilizes the dummy JSON API for practice, providing a dynamic and versatile product catalog.",
+    githubLink: "https://github.com/amr12338kh/MegaMart",
+    tech: [
+      {
+        id: 1,
+        title: "Next.js",
+        img: "/svg/nextjs-rounded.svg",
+        isDark: true,
+      },
+      {
+        id: 2,
+        title: "TypeScript",
+        img: "/svg/typescript.svg",
+        isDark: false,
+      },
+      {
+        id: 3,
+        title: "Tailwind",
+        img: "/svg/tailwind.svg",
+        isDark: false,
+      },
+      {
+        id: 4,
+        title: "Shadcn/ui",
+        img: "/svg/shadcn.svg",
+        isDark: true,
+      },
+    ],
   },
+
   {
+    id: 2,
     title: "CarsHub",
-    description: "Streamline your car rental experience",
-    src: "/p3.png",
-    ctaText: "See more",
-    ctaLink: "https://carshub-ak.vercel.app/",
-    content:
+    tagline: "Streamline your car rental experience",
+    image: "/p3.png",
+    btnText: "See more",
+    link: "https://carshub-ak.vercel.app/",
+    description:
       "Cars Hub epitomizes my expertise in modern web development, showcasing a sleek and dynamic platform for exploring the world of automobiles. Crafted with Next.js, Tailwind CSS, and Headless UI, this project embodies the synergy of cutting-edge technologies and meticulous design principles. Cars Hub redefines the online automotive experience, offering an immersive showcase of car listings, specifications, and comparison tools, all seamlessly integrated into a responsive and intuitive user interface.",
+    githubLink: "https://github.com/amr12338kh/cars_hub",
+    tech: [
+      {
+        id: 1,
+        title: "Next.js",
+        img: "/svg/nextjs-rounded.svg",
+        isDark: true,
+      },
+      {
+        id: 2,
+        title: "TypeScript",
+        img: "/svg/typescript.svg",
+        isDark: false,
+      },
+      {
+        id: 3,
+        title: "Tailwind",
+        img: "/svg/tailwind.svg",
+        isDark: false,
+      },
+      {
+        id: 4,
+        title: "Headless ui",
+        img: "/svg/headless-ui.svg",
+        isDark: false,
+      },
+    ],
+  },
+
+  {
+    id: 3,
+    title: "Disney Clone",
+    tagline: "Stream your favorite content",
+    image: "/disney-clone-1.png",
+    btnText: "See more",
+    link: "https://disney-clone-mu-eight.vercel.app/",
+    description:
+      "The Disney Clone project is a meticulous recreation of the popular streaming platform, designed to provide an immersive experience for discovering your favorite movies and TV shows. Built with Next.js, Tailwind CSS, and Shadcn/ui, this project demonstrates the seamless integration of complex UI components and dynamic content delivery, all within a visually appealing and responsive interface.",
+    githubLink: "https://github.com/amr12338kh/disney-clone",
+    tech: [
+      {
+        id: 1,
+        title: "Next.js",
+        img: "/svg/nextjs-rounded.svg",
+        isDark: true,
+      },
+      {
+        id: 2,
+        title: "TypeScript",
+        img: "/svg/typescript.svg",
+        isDark: false,
+      },
+      {
+        id: 3,
+        title: "Tailwind",
+        img: "/svg/tailwind.svg",
+        isDark: false,
+      },
+      {
+        id: 4,
+        title: "Shadcn/ui",
+        img: "/svg/shadcn.svg",
+        isDark: false,
+      },
+    ],
   },
 ];
 
