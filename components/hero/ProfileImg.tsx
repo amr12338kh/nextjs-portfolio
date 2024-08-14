@@ -4,12 +4,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const ProfileImg = ({ isSmall }: { isSmall: boolean }) => {
-  const animation = {
-    initial: { scale: 0 },
-    animate: { scale: 1 },
-    transition: { duration: 0.3 },
-  };
-
   return (
     <motion.div
       className={`relative ${isSmall ? "mb-10 md:hidden" : "hidden md:block"}`}
@@ -18,11 +12,10 @@ const ProfileImg = ({ isSmall }: { isSmall: boolean }) => {
       <div className="profile_pic rounded-full relative w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72 overflow-hidden">
         <Image
           src="/amr.jfif"
-          alt="Profile Picture"
+          alt="Amr's Profile Picture"
           fill
           style={{ objectFit: "cover" }}
           sizes="(min-width: 768px) 100vw, (min-width: 1024px) 50vw, 33vw"
-          priority={false}
         />
       </div>
       <div className="absolute inset-0 -z-10 bg-gradient-to-tl from-purple-700 to-orange-700 blur-2xl opacity-30" />
@@ -34,3 +27,9 @@ const ProfileImg = ({ isSmall }: { isSmall: boolean }) => {
 };
 
 export default ProfileImg;
+
+const animation = {
+  initial: { scale: 0 },
+  animate: { scale: 1 },
+  transition: { duration: 0.3 },
+};

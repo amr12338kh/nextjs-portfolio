@@ -6,12 +6,6 @@ import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Hero = () => {
-  const animation = {
-    initial: { opacity: 0, y: -50 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.3 },
-  };
-
   return (
     <div className="flex flex-col md:flex-row md:justify-between items-center sm:items-start md:items-center">
       <Suspense fallback={<Loading />}>
@@ -39,8 +33,14 @@ const Hero = () => {
   );
 };
 
-export const Loading = () => (
+export default Hero;
+
+const Loading = () => (
   <Skeleton className=" w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-full" />
 );
 
-export default Hero;
+const animation = {
+  initial: { opacity: 0, y: -50 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.3 },
+};

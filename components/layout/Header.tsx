@@ -8,12 +8,6 @@ import Sidbar from "./Sidbar";
 import { lobbylLinks } from "@/data";
 
 const Header = () => {
-  const animation = {
-    initial: { opacity: 0, y: -50 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.3 },
-  };
-
   return (
     <motion.header
       {...animation}
@@ -47,3 +41,9 @@ const Header = () => {
 };
 
 export default Header;
+
+const animation = {
+  initial: { opacity: 0, y: -50 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.3 },
+};
