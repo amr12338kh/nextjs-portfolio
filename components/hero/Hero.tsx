@@ -6,6 +6,12 @@ import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Hero = () => {
+  const animation = {
+    initial: { opacity: 0, y: -50 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.3 },
+  };
+
   return (
     <div className="flex flex-col md:flex-row md:justify-between items-center sm:items-start md:items-center">
       <Suspense fallback={<Loading />}>
@@ -13,17 +19,7 @@ const Hero = () => {
       </Suspense>
       <motion.div
         className=" max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl text-center sm:text-start"
-        initial={{
-          opacity: 0,
-          y: -50,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.5,
-        }}
+        {...animation}
       >
         <h3 className="font-semibold text-lg sm:text-xl">
           Hi There!, I&apos;m Amr.

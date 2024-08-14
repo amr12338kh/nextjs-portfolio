@@ -12,17 +12,7 @@ import TechStack from "./TechStack";
 const About = () => {
   return (
     <motion.div
-      initial={{
-        y: 50,
-        opacity: 0,
-      }}
-      animate={{
-        y: 0,
-        opacity: 1,
-      }}
-      transition={{
-        duration: 0.5,
-      }}
+      {...mainAnimation}
       className="grid grid-cols-1 md:grid-cols-2 md:grid-row-2 gap-2 lg:gap-4 mx-auto"
     >
       <GridItems
@@ -42,10 +32,7 @@ const About = () => {
         des="I'm very flexible with time zone communications"
       >
         <motion.div
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          transition={{ duration: 0.3 }}
-          viewport={{ once: true }}
+          {...globeAnimation}
           className="absolute left-0 flex justify-center flex-col w-full h-full"
         >
           <LocationGlobe />
@@ -71,10 +58,7 @@ const About = () => {
               return (
                 <Link key={id} href={link} target="_blank">
                   <motion.li
-                    initial={{ x: -50, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    viewport={{ once: true }}
+                    {...linksAnimation}
                     className="flex items-center gap-2 text-lg text-muted-foreground hover:text-primary duration-200"
                   >
                     {Icon && <Icon size={16} />}
@@ -91,12 +75,7 @@ const About = () => {
           des="The best framework in the field right now"
         >
           <div className="flex justify-center items-center relative h-full">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
+            <div>
               <Image
                 src="/svg/next.svg"
                 alt="next.js"
@@ -104,7 +83,7 @@ const About = () => {
                 height={150}
                 className="dark:invert"
               />
-            </motion.div>
+            </div>
           </div>
         </GridItems>
       </div>
@@ -113,3 +92,23 @@ const About = () => {
 };
 
 export default About;
+
+const mainAnimation = {
+  initial: { y: 50, opacity: 0 },
+  animate: { y: 0, opacity: 1 },
+  transition: { duration: 0.3 },
+};
+
+const globeAnimation = {
+  initial: { scale: 0 },
+  whileInView: { scale: 1 },
+  transition: { duration: 0.3 },
+  viewport: { once: true },
+};
+
+const linksAnimation = {
+  initial: { x: -50, opacity: 0 },
+  whileInView: { x: 0, opacity: 1 },
+  transition: { duration: 0.3 },
+  viewport: { once: true },
+};

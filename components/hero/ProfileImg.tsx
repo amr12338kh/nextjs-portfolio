@@ -4,18 +4,16 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const ProfileImg = ({ isSmall }: { isSmall: boolean }) => {
+  const animation = {
+    initial: { scale: 0 },
+    animate: { scale: 1 },
+    transition: { duration: 0.3 },
+  };
+
   return (
     <motion.div
       className={`relative ${isSmall ? "mb-10 md:hidden" : "hidden md:block"}`}
-      initial={{
-        scale: 0,
-      }}
-      animate={{
-        scale: 1,
-      }}
-      transition={{
-        duration: 0.5,
-      }}
+      {...animation}
     >
       <div className="profile_pic rounded-full relative w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72 overflow-hidden">
         <Image
