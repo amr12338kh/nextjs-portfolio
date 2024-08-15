@@ -2,6 +2,7 @@ import {
   FooterProps,
   LinksProps,
   ProjectsProps,
+  QuoteProps,
   SkillsItemsProps,
   TestimonialsProps,
 } from "@/types";

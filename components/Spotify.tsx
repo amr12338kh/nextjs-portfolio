@@ -1,48 +1,92 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getNowPlaying } from "@/lib/spotify";
+import { useEffect, useState, useCallback, useRef } from "react";
+import {
+  spotifyApi,
+  getAccessToken,
+  NOW_PLAYING_ENDPOINT,
+} from "@/lib/spotify";
+import { NowPlayingItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { NowPlayingItem } from "@/types";
 import { Loader2 } from "lucide-react";
 
 export const Spotify = () => {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const etagRef = useRef<string | null>(null);
+  const POLLING_INTERVAL = 10000; // 10 seconds
+
+  const fetchNowPlaying = useCallback(async () => {
+    try {
+      setError(null);
+      const accessToken = await getAccessToken();
+      spotifyApi.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${accessToken}`;
+
+      const headers: Record<string, string> = etagRef.current
+        ? { "If-None-Match": etagRef.current }
+        : {};
+
+      const response = await spotifyApi.get(NOW_PLAYING_ENDPOINT, { headers });
+
+      if (response.status === 304) {
+        return; // Song hasn't changed, skip update
+      }
+
+      if (response.data) {
+        etagRef.current = response.headers.etag;
+
+        // Check if the response corresponds to an ad
+        if (
+          !response.data.item ||
+          response.data.currently_playing_type === "ad"
+        ) {
+          setNowPlaying(null); // No song playing or it's an ad
+        } else {
+          const { item, is_playing } = response.data;
+          setNowPlaying({
+            albumImageUrl: item.album.images[0]?.url ?? "",
+            artist: item.artists
+              .map((artist: { name: string }) => artist.name)
+              .join(", "),
+            isPlaying: is_playing,
+            songUrl: item.external_urls.spotify,
+            title: item.name,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching now playing:", error);
+      setError(
+        error instanceof Error
+          ? error
+          : new Error("Failed to fetch now playing data")
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const fetchNowPlaying = async () => {
-      try {
-        const item = await getNowPlaying();
-        setNowPlaying(item);
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching now playing item:", err);
-        setError(
-          err instanceof Error ? err : new Error("An unknown error occurred")
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchNowPlaying();
-
-    const interval = setInterval(fetchNowPlaying, 10000); // Fetch every 10 seconds
+    const interval = setInterval(fetchNowPlaying, POLLING_INTERVAL);
     return () => clearInterval(interval);
-  }, [nowPlaying?.isPlaying]);
+  }, [fetchNowPlaying]);
 
-  if (loading)
+  if (loading) {
     return (
       <p className="flex items-center">
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Connecting to
+        Spotify...
       </p>
     );
+  }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <p>Error loading Spotify: {error.message}</p>;
   }
 
   if (!nowPlaying || !nowPlaying.isPlaying) {

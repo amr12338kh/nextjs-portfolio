@@ -65,6 +65,7 @@ export interface SpotifyAccessTokenResponse {
 }
 
 export interface SpotifyNowPlayingResponse {
+  currently_playing_type: string;
   status: number;
   is_playing: boolean;
   item: {
