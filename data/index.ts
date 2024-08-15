@@ -272,7 +272,7 @@ export const projectsCards: ProjectsProps[] = [
         id: 4,
         title: "Shadcn/ui",
         img: "/svg/shadcn.svg",
-        isDark: false,
+        isDark: true,
       },
     ],
   },

@@ -20,6 +20,18 @@ export interface SkillsItemsProps {
 export interface ExpandableCardProps {
   items: ProjectsProps[];
 }
+
+export interface ExpandableCardItemProps {
+  id: string;
+  item: ProjectsProps;
+  setActive: (item: any) => void;
+}
+
+export interface ExpandedCardContentProps {
+  id: string;
+  active: ProjectsProps;
+  setActive: (item: any) => void;
+}
 export interface ProjectsProps {
   id: number;
   title: string;

@@ -1,4 +1,4 @@
-import { ExpandableCard } from "./ui/ExpandableCard";
+import { ExpandableCard } from "./ui/Expandable/ExpandableCard";
 import { projectsCards } from "@/data";
 
 const Projects = () => {

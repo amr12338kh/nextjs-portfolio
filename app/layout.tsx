@@ -10,7 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Amr's Portfolio",
-  description: "Showcase my abilities",
+  description: "Amr - Passionate Front-End Developer specializing in Next.js",
 };
 
 export default function RootLayout({
