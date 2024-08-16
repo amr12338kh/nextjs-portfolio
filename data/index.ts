@@ -245,7 +245,7 @@ export const projectsCards: ProjectsProps[] = [
     tagline: "Stream your favorite content",
     image: "/disney-clone-1.png",
     btnText: "See more",
-    link: "https://disney-clone-mu-eight.vercel.app/",
+    link: "https://disney-clone-ak.vercel.app",
     description:
       "The Disney Clone project is a meticulous recreation of the popular streaming platform, designed to provide an immersive experience for discovering your favorite movies and TV shows. Built with Next.js, Tailwind CSS, and Shadcn/ui, this project demonstrates the seamless integration of complex UI components and dynamic content delivery, all within a visually appealing and responsive interface.",
     githubLink: "https://github.com/amr12338kh/disney-clone",
