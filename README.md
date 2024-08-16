@@ -2,7 +2,9 @@
 
 [![Vercel](https://vercel.com/button)](https://amr-portfolio-dev.vercel.app/)
 
-Welcome to my personal portfolio project! This repository contains the source code for my developer-friendly portfolio built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **Shadcn UI**. This portfolio showcases my projects, skills, and experience.
+Welcome to my personal portfolio! This portfolio is a reflection of my journey as a **front-end developer**, showcasing my skills, projects, and professional experiences. Built with cutting-edge technologies like **Next.js**, **TypeScript**, **Tailwind CSS**, and **Shadcn UI**, this site highlights my passion for creating sleek, responsive, and user-friendly web applications.
+
+[![Portfolio Screenshot](public/amr-portfolio-img.png)](https://amr-portfolio-dev.vercel.app/)
 
 ## Live Demo
 
