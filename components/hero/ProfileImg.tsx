@@ -11,7 +11,7 @@ const ProfileImg = ({ isSmall }: { isSmall: boolean }) => {
     >
       <div className="profile_pic rounded-full relative w-48 h-48 md:w-56 md:h-56 lg:w-72 lg:h-72 overflow-hidden">
         <Image
-          src="/amr.jfif"
+          src="/Amr3.jpg"
           alt="Amr's Profile Picture"
           fill
           style={{ objectFit: "cover" }}
