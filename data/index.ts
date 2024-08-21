@@ -169,7 +169,7 @@ export const projectsCards: ProjectsProps[] = [
     tagline: "An e-commerce website",
     image: "/p2.png",
     btnText: "See more",
-    link: "https://megamart-ak.vercel.app/",
+    link: "https://megamart-ak.netlify.app",
     description:
       "MegaMart is a sleek e-commerce platform showcasing my expertise in web development. Built with Next.js, Tailwind CSS, and Shadcn, this project offers a seamless shopping experience across a wide range of products. With dynamic page rendering and responsive design, MegaMart represents the future of online retail, driven by innovation and excellence in web development. The platform utilizes the dummy JSON API for practice, providing a dynamic and versatile product catalog.",
     githubLink: "https://github.com/amr12338kh/MegaMart",
