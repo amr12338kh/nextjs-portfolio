@@ -34,7 +34,7 @@ export const ExpandedCardContent = forwardRef(
         <motion.div
           ref={ref}
           layoutId={`card-${active.title}-${id}`}
-          className="w-full px-4 sm:px-6 max-h-screen max-w-[500px] h-full min-[500px]:h-fit min-[500px]:max-h-[90%] flex flex-col bg-primary-foreground min-[500px]:rounded-3xl overflow-hidden"
+          className="w-full px-4 sm:px-6 max-h-screen max-w-[500px] overflow-y-scroll scrollbar-hide outline-none h-full min-[500px]:h-fit min-[500px]:max-h-[90%] flex flex-col bg-primary-foreground min-[500px]:rounded-3xl"
         >
           <motion.div
             layoutId={`image-${active.title}-${id}`}
