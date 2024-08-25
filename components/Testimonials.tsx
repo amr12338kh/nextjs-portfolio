@@ -2,6 +2,7 @@ import { CircleUserRound } from "lucide-react";
 import { InfiniteMovingCards } from "./ui/InfiniteMovingCards";
 import { testimonials } from "@/data";
 import Image from "next/image";
+import TextAmbient from "./ui/TextAmbient";
 
 const Testimonials = () => {
   return (
@@ -10,7 +11,7 @@ const Testimonials = () => {
         <h1 className="text-3xl sm:text-5xl font-bold tracking-wider">
           What others saying
         </h1>
-        <div className="absolute size-24 top-[50%] w-[300px] left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 -z-10 bg-gradient-to-tl from-purple-700 to-orange-700 blur-2xl opacity-25" />
+        <TextAmbient />
       </div>
       <div className=" relative">
         <InfiniteMovingCards

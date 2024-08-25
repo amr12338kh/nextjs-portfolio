@@ -32,7 +32,7 @@ const About = () => {
         des="I'm very flexible with time zone communications"
       >
         <motion.div
-          {...globeAnimation}
+          // {...globeAnimation}
           className="absolute left-0 flex justify-center flex-col w-full h-full"
         >
           <LocationGlobe />
@@ -99,12 +99,12 @@ const mainAnimation = {
   transition: { duration: 0.3 },
 };
 
-const globeAnimation = {
-  initial: { scale: 0 },
-  whileInView: { scale: 1 },
-  transition: { duration: 0.3 },
-  viewport: { once: true },
-};
+// const globeAnimation = {
+//   initial: { scale: 0 },
+//   whileInView: { scale: 1 },
+//   transition: { duration: 0.3 },
+//   viewport: { once: true },
+// };
 
 const linksAnimation = {
   initial: { x: -50, opacity: 0 },

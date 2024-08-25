@@ -110,13 +110,13 @@ export const ExpandedCardContent = forwardRef(
                 <div className="flex sm:gap-x-1">
                   {active.tech.map(({ id, title, img, isDark }) => (
                     <Hover id={id} key={id} title={title}>
-                      <div className="bg-muted ml-[-8px] sm:ml-[-12px] p-[3px] sm:p-[6px] border border-muted-foreground/50 rounded-lg flex items-center">
+                      <div className="bg-muted ml-[-8px] z-10 sm:ml-[-12px] p-[3px] sm:p-[6px] border border-muted-foreground/50 rounded-lg flex items-center">
                         <Image
                           src={img}
                           alt={title}
                           width={18}
                           height={18}
-                          className={`${isDark && "dark:invert"}`}
+                          className={`${isDark && "dark:invert z-0"}`}
                           priority={false}
                         />
                       </div>

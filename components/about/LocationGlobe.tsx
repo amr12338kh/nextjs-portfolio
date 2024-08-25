@@ -51,9 +51,9 @@ export const LocationGlobe = () => {
       phi: phi, // Set initial value to focus on Cairo
       theta: theta, // Set initial value to focus on Cairo
       dark: 1,
-      diffuse: 2,
-      mapSamples: 12_000,
-      mapBrightness: 2,
+      mapSamples: 6_000, // Lowered for less intensive processing
+      mapBrightness: 1.5, // Reduced from 2 for smoother rendering
+      diffuse: 1.5, // Reduced from 2
       baseColor: [0.8, 0.8, 0.8],
       markerColor: [1, 1, 1],
       glowColor: [0.3, 0.3, 0.3],
