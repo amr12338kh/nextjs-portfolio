@@ -2,18 +2,11 @@ import { LoginForm } from "@/components/auth/login-form";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-const LoginPage = async ({
-  searchParams,
-}: {
-  searchParams: Record<string, string | string[]>;
-}) => {
+const LoginPage = async ({ searchParams }: any) => {
   const session = await auth();
 
   if (session?.user) {
-    const redirectUrl =
-      typeof searchParams?.callbackUrl === "string"
-        ? searchParams.callbackUrl
-        : "/";
+    const redirectUrl = searchParams?.callbackUrl || "/";
     redirect(redirectUrl);
   }
 
