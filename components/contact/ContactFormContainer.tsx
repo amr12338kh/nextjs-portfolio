@@ -15,7 +15,7 @@ export function ContactFormContainer({
             <div className="flex flex-col items-center text-center">
               <h1 className="text-4xl mb-1 font-bold">Contact us</h1>
               <p className="text-balance text-xs sm:text-sm text-muted-foreground">
-                We'd love to hear from you!
+                We&apos;d love to hear from you!
               </p>
             </div>
             {children}

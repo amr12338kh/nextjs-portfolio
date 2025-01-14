@@ -34,7 +34,7 @@ export default async function RootLayout({
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Access Denied</h1>
           <p className="text-muted-foreground">
-            You don't have permission to access this area
+            You don&apos;t have permission to access this area
           </p>
         </div>
         <Link href="/">

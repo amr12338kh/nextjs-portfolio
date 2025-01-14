@@ -45,7 +45,7 @@ const Sidebar = ({
                 </div>
                 <div className="grid flex-1 text-left leading-tight">
                   <span className="truncate font-semibold text-base">
-                    Amr's Portfolio
+                    Amr&apos;s Portfolio
                   </span>
                 </div>
               </div>

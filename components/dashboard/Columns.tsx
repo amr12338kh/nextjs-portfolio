@@ -8,7 +8,7 @@ import { useState } from "react";
 import ItemDropdownMenu from "../ItemDropdownMenu";
 
 // Common columns that appear in all tables at the start
-const startCommonColumns: ColumnDef<TableDataProps>[] = [
+const StartCommonColumns: ColumnDef<TableDataProps>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -34,7 +34,7 @@ const startCommonColumns: ColumnDef<TableDataProps>[] = [
 ];
 
 // Common columns that appear in all tables at the end
-const endCommonColumns: ColumnDef<TableDataProps>[] = [
+const EndCommonColumns: ColumnDef<TableDataProps>[] = [
   {
     accessorKey: "_id",
     header: "ID",
@@ -82,7 +82,7 @@ const endCommonColumns: ColumnDef<TableDataProps>[] = [
   },
 ];
 
-const projectColumns: ColumnDef<TableDataProps>[] = [
+const ProjectColumns: ColumnDef<TableDataProps>[] = [
   {
     accessorKey: "image",
     header: "Image",
@@ -106,7 +106,7 @@ const projectColumns: ColumnDef<TableDataProps>[] = [
 ];
 
 // Skill-specific columns
-const skillColumns: ColumnDef<TableDataProps>[] = [
+const SkillColumns: ColumnDef<TableDataProps>[] = [
   {
     accessorKey: "image",
     header: "Image",
@@ -135,7 +135,7 @@ const skillColumns: ColumnDef<TableDataProps>[] = [
 ];
 
 // Testimonial-specific columns
-const testimonialColumns: ColumnDef<TableDataProps>[] = [
+const TestimonialColumns: ColumnDef<TableDataProps>[] = [
   {
     accessorKey: "username",
     header: "Name",
@@ -153,18 +153,18 @@ export const getColumns = (type: string): ColumnDef<TableDataProps>[] => {
 
   switch (type) {
     case "project":
-      typeSpecificColumns = projectColumns;
+      typeSpecificColumns = ProjectColumns;
       break;
     case "skill":
-      typeSpecificColumns = skillColumns;
+      typeSpecificColumns = SkillColumns;
       break;
     case "testimonial":
-      typeSpecificColumns = testimonialColumns;
+      typeSpecificColumns = TestimonialColumns;
       break;
     default:
-      typeSpecificColumns = projectColumns;
+      typeSpecificColumns = ProjectColumns;
   }
 
   // Combine columns in the desired order
-  return [...startCommonColumns, ...typeSpecificColumns, ...endCommonColumns];
+  return [...StartCommonColumns, ...typeSpecificColumns, ...EndCommonColumns];
 };

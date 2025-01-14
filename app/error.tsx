@@ -60,7 +60,9 @@ const Error = ({
         <div className="space-y-6 text-center sm:text-left">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold">Something went wrong!</h2>
-            <p className="text-muted-foreground">We're working on fixing it.</p>
+            <p className="text-muted-foreground">
+              We&apos;re working on fixing it.
+            </p>
           </div>
 
           {error.digest && (
