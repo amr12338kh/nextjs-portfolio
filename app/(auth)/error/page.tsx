@@ -2,6 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
 
 enum AuthError {
   Configuration = "Configuration",
@@ -66,7 +67,7 @@ const errorMap: Record<
   },
 };
 
-export default function AuthErrorPage() {
+function AuthErrorContent() {
   const router = useRouter();
   const search = useSearchParams();
   const error = (search.get("error") as AuthError) || AuthError.Default;
@@ -110,5 +111,13 @@ export default function AuthErrorPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthErrorContent />
+    </Suspense>
   );
 }
