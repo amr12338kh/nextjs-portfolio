@@ -3,11 +3,11 @@ import React from "react";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-const LoginPage = async ({
-  searchParams,
-}: {
-  searchParams: { callbackUrl: string | undefined };
-}) => {
+interface LoginPageProps {
+  searchParams?: { callbackUrl?: string };
+}
+
+const LoginPage = async ({ searchParams }: LoginPageProps) => {
   const session = await auth();
 
   // If user is already logged in, redirect to home or callback URL
