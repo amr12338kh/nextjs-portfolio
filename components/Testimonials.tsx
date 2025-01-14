@@ -1,10 +1,6 @@
 import { CircleUserRound } from "lucide-react";
 import { InfiniteMovingCards } from "./ui/InfiniteMovingCards";
-import { testimonials } from "@/data";
-import Image from "next/image";
 import SectionTitle from "./SectionTitle";
-import { client } from "@/sanity/lib/client";
-import { ALL_TESTIMONIALS_QUERY } from "@/sanity/lib/queries";
 import { TestimonialsProps } from "@/types";
 
 const Testimonials = async ({
@@ -23,7 +19,7 @@ const Testimonials = async ({
         >
           {testimonials.map(
             (
-              { username, job_title, image, user_message }: TestimonialsProps,
+              { username, job_title, user_message }: TestimonialsProps,
               index: number
             ) => (
               <li
@@ -32,17 +28,7 @@ const Testimonials = async ({
               >
                 <blockquote className="flex flex-col gap-4">
                   <div className=" flex items-center gap-2">
-                    {image ? (
-                      <Image
-                        src={image}
-                        alt={username}
-                        width={100}
-                        height={100}
-                        className="w-[40px] h-[40px] rounded-full object-cover"
-                      />
-                    ) : (
-                      <CircleUserRound size={40} />
-                    )}
+                    <CircleUserRound size={40} />
                     <div>
                       <h1 className="font-semibold text-primary text-sm sm:text-base line-clamp-1">
                         {username}
