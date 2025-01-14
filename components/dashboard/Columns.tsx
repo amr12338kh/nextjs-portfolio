@@ -64,7 +64,7 @@ const EndCommonColumns: ColumnDef<TableDataProps>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
+    cell: function Row({ row }) {
       const model = row.original;
       const [open, setOpen] = useState(false);
 
