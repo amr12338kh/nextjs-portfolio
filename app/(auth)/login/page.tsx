@@ -2,11 +2,11 @@ import { LoginForm } from "@/components/auth/login-form";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-interface LoginPageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-const LoginPage = async ({ searchParams }: LoginPageProps) => {
+const LoginPage = async ({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[]>;
+}) => {
   const session = await auth();
 
   if (session?.user) {
