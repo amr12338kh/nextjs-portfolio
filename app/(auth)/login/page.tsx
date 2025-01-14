@@ -4,16 +4,17 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 interface LoginPageProps {
-  searchParams: { callbackUrl: string };
+  searchParams: Record<string, string | string[]>;
 }
 
 const LoginPage = async ({ searchParams }: LoginPageProps) => {
   const session = await auth();
 
-  // If user is already logged in, redirect to home or callback URL
   if (session?.user) {
-    // If there's a callback URL, use it, otherwise go to home
-    const redirectUrl = searchParams?.callbackUrl || "/";
+    const redirectUrl =
+      typeof searchParams?.callbackUrl === "string"
+        ? searchParams.callbackUrl
+        : "/";
     redirect(redirectUrl);
   }
 
