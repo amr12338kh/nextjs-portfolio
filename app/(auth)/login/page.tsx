@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 interface LoginPageProps {
-  searchParams?: { callbackUrl?: string };
+  searchParams: { callbackUrl: string };
 }
 
 const LoginPage = async ({ searchParams }: LoginPageProps) => {
