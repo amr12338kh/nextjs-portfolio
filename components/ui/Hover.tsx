@@ -9,16 +9,14 @@ import {
 const Hover = ({
   children,
   title,
-  key,
   id,
 }: {
   children: React.ReactNode;
   title: string;
-  key: number;
   id: number;
 }) => {
   return (
-    <HoverCard key={key}>
+    <HoverCard>
       <HoverCardTrigger className="flex">{children}</HoverCardTrigger>
       <HoverCardContent>{title}</HoverCardContent>
     </HoverCard>

@@ -8,12 +8,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import TechStack from "./TechStack";
+import { Skill } from "@/sanity/types";
 
-const About = () => {
+const About = ({ skills }: { skills: Skill[] }) => {
   return (
     <motion.div
       {...mainAnimation}
-      className="grid grid-cols-1 md:grid-cols-2 md:grid-row-2 gap-2 lg:gap-4 mx-auto"
+      className="grid grid-cols-1 md:grid-cols-2 md:grid-row-2 gap-2 lg:gap-3 mx-auto"
     >
       <GridItems
         icon={<User size={16} />}
@@ -21,7 +22,7 @@ const About = () => {
         des="A quick overview of me"
       >
         <div className="flex items-center h-full">
-          <p className="font-semibold text-center text-sm tracking-wider md:text-base">
+          <p className="font-medium text-center text-sm md:text-base">
             {aboutWords}
           </p>
         </div>
@@ -31,10 +32,7 @@ const About = () => {
         title="Cairo, Egypt"
         des="I'm very flexible with time zone communications"
       >
-        <motion.div
-          // {...globeAnimation}
-          className="absolute left-0 flex justify-center flex-col w-full h-full"
-        >
+        <motion.div className="absolute left-0 flex justify-center flex-col w-full h-full">
           <LocationGlobe />
         </motion.div>
       </GridItems>
@@ -44,15 +42,15 @@ const About = () => {
         des="My tech stack that I use in my work"
         className="relative"
       >
-        <TechStack />
+        <TechStack skills={skills} />
       </GridItems>
-      <div className="flex flex-col sm:flex-row gap-2 lg:gap-4">
+      <div className="flex flex-col sm:flex-row gap-2 lg:gap-3">
         <GridItems
           icon={<MessagesSquare size={16} />}
           title="Contact"
           des="Let's collaborate to turn your vision into reality!"
         >
-          <ul className="flex flex-col h-full gap-4 justify-center">
+          <ul className="flex flex-col h-full gap-2 justify-center">
             {contactLinks.map(({ id, name, link, icon }) => {
               const Icon = icon;
               return (
@@ -98,13 +96,6 @@ const mainAnimation = {
   animate: { y: 0, opacity: 1 },
   transition: { duration: 0.3 },
 };
-
-// const globeAnimation = {
-//   initial: { scale: 0 },
-//   whileInView: { scale: 1 },
-//   transition: { duration: 0.3 },
-//   viewport: { once: true },
-// };
 
 const linksAnimation = {
   initial: { x: -50, opacity: 0 },

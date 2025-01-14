@@ -20,7 +20,7 @@ const GridItems = ({
         className
       )}
     >
-      <div className="">
+      <div>
         <h1
           className={`font-semibold text-base sm:text-lg ${
             icon && "flex items-center gap-2"

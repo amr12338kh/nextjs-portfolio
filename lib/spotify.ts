@@ -1,32 +1,41 @@
-import axios from "axios";
-import querystring from "querystring";
 import {
+  NowPlayingItem,
   SpotifyAccessTokenResponse,
   SpotifyNowPlayingResponse,
-  NowPlayingItem,
 } from "@/types";
+import querystring from "querystring";
+import axios from "axios";
 
-const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
-export const NOW_PLAYING_ENDPOINT =
+const SPOTIFY_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
+export const SPOTIFY_NOW_PLAYING_ENDPOINT =
   "https://api.spotify.com/v1/me/player/currently-playing";
 
 export const spotifyApi = axios.create({
   baseURL: "https://api.spotify.com/v1",
 });
 
-export const getAccessToken = async (): Promise<string> => {
+export const getSpotifyAccessToken = async (): Promise<string> => {
+  const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
+  const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+  const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
+
+  // Check if environment variables are defined
+  if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_REFRESH_TOKEN) {
+    throw new Error("Missing required Spotify environment variables");
+  }
+
   const basic = Buffer.from(
-    `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}:${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET}`
+    `${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`
   ).toString("base64");
 
   const maxRetries = 3;
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const response = await axios.post<SpotifyAccessTokenResponse>(
-        TOKEN_ENDPOINT,
+        SPOTIFY_TOKEN_ENDPOINT,
         querystring.stringify({
           grant_type: "refresh_token",
-          refresh_token: process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN,
+          refresh_token: SPOTIFY_REFRESH_TOKEN,
         }),
         {
           headers: {
@@ -36,16 +45,28 @@ export const getAccessToken = async (): Promise<string> => {
         }
       );
 
+      if (!response.data.access_token) {
+        throw new Error("No access token received in response");
+      }
+
       return response.data.access_token;
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Spotify API Error:", {
+          status: error.response?.status,
+          data: error.response?.data,
+          message: error.message,
+        });
+      }
       if (attempt < maxRetries) {
         console.warn(
           `Retrying access token request (${attempt}/${maxRetries})...`
         );
         await new Promise((res) => setTimeout(res, 1000)); // wait 1 second before retrying
       } else {
-        console.error("Error getting access token:", error);
-        throw new Error("Failed to get access token after multiple attempts");
+        throw new Error(
+          `Failed to get Spotify access token after ${maxRetries} attempts`
+        );
       }
     }
   }
@@ -54,13 +75,12 @@ export const getAccessToken = async (): Promise<string> => {
 
 export const getNowPlaying = async (): Promise<NowPlayingItem | null> => {
   try {
-    const accessToken = await getAccessToken();
-    spotifyApi.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${accessToken}`;
+    const accessToken = await getSpotifyAccessToken();
+    spotifyApi.defaults.headers.common["Authorization"] =
+      `Bearer ${accessToken}`;
 
     const response = await spotifyApi.get<SpotifyNowPlayingResponse>(
-      NOW_PLAYING_ENDPOINT
+      SPOTIFY_NOW_PLAYING_ENDPOINT
     );
 
     if (response.status === 204 || !response.data) {

@@ -3,8 +3,8 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import {
   spotifyApi,
-  getAccessToken,
-  NOW_PLAYING_ENDPOINT,
+  getSpotifyAccessToken,
+  SPOTIFY_NOW_PLAYING_ENDPOINT,
 } from "@/lib/spotify";
 import { NowPlayingItem } from "@/types";
 import Image from "next/image";
@@ -21,16 +21,17 @@ export const Spotify = () => {
   const fetchNowPlaying = useCallback(async () => {
     try {
       setError(null);
-      const accessToken = await getAccessToken();
-      spotifyApi.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${accessToken}`;
+      const accessToken = await getSpotifyAccessToken();
+      spotifyApi.defaults.headers.common["Authorization"] =
+        `Bearer ${accessToken}`;
 
       const headers: Record<string, string> = etagRef.current
         ? { "If-None-Match": etagRef.current }
         : {};
 
-      const response = await spotifyApi.get(NOW_PLAYING_ENDPOINT, { headers });
+      const response = await spotifyApi.get(SPOTIFY_NOW_PLAYING_ENDPOINT, {
+        headers,
+      });
 
       if (response.status === 304) {
         return; // Song hasn't changed, skip update

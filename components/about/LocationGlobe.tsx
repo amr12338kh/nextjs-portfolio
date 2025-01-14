@@ -2,7 +2,7 @@
 
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
-import { useSpring } from "react-spring";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export const LocationGlobe = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -11,15 +11,8 @@ export const LocationGlobe = () => {
   const fadeMask =
     "radial-gradient(circle at 50% 50%, rgb(0, 0, 0) 60%, rgb(0, 0, 0, 0) 70%)";
 
-  const [{ r }, api] = useSpring(() => ({
-    r: 0,
-    config: {
-      mass: 1,
-      tension: 280,
-      friction: 40,
-      precision: 0.001,
-    },
-  }));
+  const r = useMotionValue(0); // Initialize motion value
+  const springR = useSpring(r, { stiffness: 280, damping: 40 });
 
   const locationToAngles = (lat: number, long: number) => {
     const phi = ((long + 180) / 360) * 2 * Math.PI; // Adjusted for cobe's coordinate system
@@ -60,7 +53,8 @@ export const LocationGlobe = () => {
       markers: [{ location: [latitude, longitude], size: 0.1 }],
       scale: 1.05,
       onRender: (state) => {
-        state.phi = phi + r.get() - 100; // Lock phi to focus on Cairo and allow interaction
+        const currentR = springR.get(); // Use springR to read the smoothed value
+        state.phi = phi + currentR - 100; // Lock phi to focus on Cairo and allow interaction
         state.theta = theta + 100; // Lock theta to focus on Cairo
         state.width = width * 2;
         state.height = width * 2;
@@ -71,7 +65,7 @@ export const LocationGlobe = () => {
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, [r]);
+  }, [springR]);
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden">
@@ -115,9 +109,7 @@ export const LocationGlobe = () => {
                 if (pointerInteracting.current !== null) {
                   const delta = e.clientX - pointerInteracting.current;
                   pointerInteractionMovement.current = delta;
-                  void api.start({
-                    r: delta / 200,
-                  });
+                  r.set(delta / 200); // Update the motion value directly
                 }
               }}
               onTouchMove={(e) => {
@@ -125,9 +117,7 @@ export const LocationGlobe = () => {
                   const delta =
                     e.touches[0].clientX - pointerInteracting.current;
                   pointerInteractionMovement.current = delta;
-                  void api.start({
-                    r: delta / 100,
-                  });
+                  r.set(delta / 100); // Update the motion value directly
                 }
               }}
               style={{

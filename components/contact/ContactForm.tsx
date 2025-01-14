@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -46,12 +45,10 @@ export const ContactForm = () => {
     },
   });
 
-  // Define the submit handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Ensure environment variables are defined
-    const serviceId = process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY;
+    const serviceId = process.env.EMAIL_SERVICE_ID;
+    const templateId = process.env.EMAIL_TEMPLATE_ID;
+    const publicKey = process.env.EMAIL_PUBLIC_KEY;
 
     if (!serviceId || !templateId || !publicKey) {
       console.error("Missing email configuration in environment variables");
@@ -67,7 +64,6 @@ export const ContactForm = () => {
           description: "Your message has been sent successfully!",
         });
 
-        // You might want to reset the form or display a success message here
         form.reset();
         setIsSent(false);
       }
@@ -76,7 +72,6 @@ export const ContactForm = () => {
         title: "Somthing went wrong",
         description: "Please try again",
       });
-      // Handle the error here (e.g., display an error message to the user)
       console.error("Failed to send email:", error);
       setIsSent(false);
     }
@@ -94,7 +89,7 @@ export const ContactForm = () => {
                 Username <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input placeholder="Enter your name" {...field} />
+                <Input placeholder="John Doe" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -109,7 +104,7 @@ export const ContactForm = () => {
                 Email <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input placeholder="Enter a valid email" {...field} />
+                <Input placeholder="john@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -124,19 +119,19 @@ export const ContactForm = () => {
                 Message <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Textarea placeholder="Leave a message" {...field} />
+                <Textarea placeholder="Hello, World!" rows={5} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         {isSent ? (
-          <Button disabled className="mt-4">
+          <Button disabled className="mt-4 w-full">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please wait
           </Button>
         ) : (
-          <Button variant="big_g" type="submit" className="font-bold">
+          <Button type="submit" className="font-bold w-full mt-4">
             Submit
           </Button>
         )}
