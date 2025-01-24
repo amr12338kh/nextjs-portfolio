@@ -15,19 +15,18 @@ const ProjectCard = ({
 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.95, y: 30 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
       transition={{
         duration: 0.5,
-        delay: index * 0.1,
+        delay: index * 0.2,
         ease: [0.23, 1, 0.32, 1], // Custom easing for smoother animation
       }}
-      whileHover={{ y: -8 }}
       viewport={{ once: true }}
       className="group relative w-full"
     >
       <Link href={`project/${project._id}`} className="block">
-        <div className="relative overflow-hidden bg-background rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="relative overflow-hidden bg-background rounded-xl transition-all duration-300">
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image
               src={project.image || "/images/placeholder.jpg"}
