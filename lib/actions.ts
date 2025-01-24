@@ -7,6 +7,14 @@ import { ProjectProps, SkillProps, TestimonialsProps } from "@/types";
 import { auth } from "@/auth";
 import { client } from "@/sanity/lib/client";
 
+const logError = (context: string, error: unknown) => {
+  console.error(`[${context}] Error details:`, {
+    message: error instanceof Error ? error.message : String(error),
+    fullError: error,
+    timestamp: new Date().toISOString(),
+  });
+};
+
 export const deleteItem = async (id: string) => {
   try {
     await client.delete(id);
@@ -59,7 +67,12 @@ export const createProject = async (newProject: ProjectProps) => {
       skills: skillReferences,
     };
 
+    console.log("[createProject] Preparing to create project in Sanity");
     const result = await writeClient.create(project);
+
+    console.log("[createProject] Project created successfully", {
+      projectId: result._id,
+    });
 
     return parseServerActionResponse({
       ...result,
@@ -67,7 +80,7 @@ export const createProject = async (newProject: ProjectProps) => {
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error);
+    logError("createProject", error);
 
     return parseServerActionResponse({
       error: JSON.stringify(error),
@@ -116,18 +129,22 @@ export const updateProject = async (data: ProjectProps) => {
       skills: skillReferences,
     };
 
+    console.log("[updateProject] Preparing to update project in Sanity");
     const result = await writeClient
       .patch(id ? id : "")
       .set(project)
       .commit();
 
+    console.log("[updateProject] Project updated successfully", {
+      projectId: result._id,
+    });
     return parseServerActionResponse({
       ...result,
       error: "",
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error);
+    logError("updateProject", error);
     return parseServerActionResponse({
       error: JSON.stringify(error),
       status: "ERROR",
@@ -146,7 +163,12 @@ export const createSkill = async (newSkill: SkillProps) => {
       isDark,
     };
 
+    console.log("[createSkill] Preparing to create skill in Sanity");
     const result = await writeClient.create(skill);
+
+    console.log("[createSkill] Skill created successfully", {
+      skillId: result._id,
+    });
 
     return parseServerActionResponse({
       ...result,
@@ -154,7 +176,7 @@ export const createSkill = async (newSkill: SkillProps) => {
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error);
+    logError("createSkill", error);
 
     return parseServerActionResponse({
       error: JSON.stringify(error),
@@ -167,6 +189,7 @@ export const updateSkill = async (data: SkillProps) => {
   const { id, title, image, isDark } = data;
 
   try {
+    console.log("[updateSkill] Preparing to update skill in Sanity");
     const result = await writeClient
       .patch(id ? id : "")
       .set({
@@ -176,13 +199,16 @@ export const updateSkill = async (data: SkillProps) => {
       })
       .commit();
 
+    console.log("[updateSkill] Skill updated successfully", {
+      skillId: result._id,
+    });
     return parseServerActionResponse({
       ...result,
       error: "",
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error);
+    logError("updateSkill", error);
     return parseServerActionResponse({
       error: JSON.stringify(error),
       status: "ERROR",
@@ -203,15 +229,21 @@ export const createTestimonials = async (
       user_message,
     };
 
+    console.log(
+      "[createTestimonials] Preparing to create testimonials in Sanity"
+    );
     const result = await writeClient.create(testimonials);
 
+    console.log("[createTestimonials] Testimonials created successfully", {
+      testimonialsId: result._id,
+    });
     return parseServerActionResponse({
       ...result,
       error: "",
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error);
+    logError("createTestimonials", error);
 
     return parseServerActionResponse({
       error: JSON.stringify(error),
@@ -224,6 +256,9 @@ export const updateTestimonials = async (data: TestimonialsProps) => {
   const { id, job_title, user_message, username } = data;
 
   try {
+    console.log(
+      "[updateTestimonials] Preparing to update testimonials in Sanity"
+    );
     const result = await writeClient
       .patch(id ? id : "")
       .set({
@@ -233,13 +268,17 @@ export const updateTestimonials = async (data: TestimonialsProps) => {
       })
       .commit();
 
+    console.log("[updateTestimonials] Testimonials updated successfully", {
+      testimonialsId: result._id,
+    });
+
     return parseServerActionResponse({
       ...result,
       error: "",
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error);
+    logError("updateTestimonials", error);
     return parseServerActionResponse({
       error: JSON.stringify(error),
       status: "ERROR",
