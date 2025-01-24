@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import ProfileImg from "./ProfileImg";
 import { Suspense, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TypeAnimation } from "react-type-animation";
 import { TypewriterText } from "../TypewriterText";
 
 const HERO_ANIMATIONS = {

@@ -5,9 +5,9 @@ import Image from "next/image";
 import { memo } from "react";
 
 const PROFILE_ANIMATIONS = {
-  initial: { scale: 0 },
-  animate: { scale: 1 },
-  transition: { duration: 0.3, ease: "easeOut" },
+  initial: { scale: 0, rotate: "90deg" },
+  animate: { scale: 1, rotate: "0deg" },
+  transition: { ease: "easeOut" },
 } as const;
 
 interface ProfileImgProps {
