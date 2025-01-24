@@ -60,7 +60,7 @@ interface ItemProps {
   _id: string;
   title: string;
   url: string;
-  icon?: JSX.Element;
+  icon?: JSX.IntrinsicAttributes;
   type: "project" | "skill" | "testimonial";
 }
 
