@@ -2,14 +2,12 @@ import { footerLinks } from "@/data";
 import Link from "next/link";
 import { Spotify } from "../Spotify";
 import Logo from "../Logo";
-import { LinksProps } from "@/types";
+import { filterLinks } from "@/lib/utils";
 
 const Footer = ({ isTestimonials }: { isTestimonials: boolean }) => {
   const date = Date.now();
   const currentDate = new Date(date);
   const year = currentDate.getFullYear();
-
-  let headerLinks: LinksProps[] = [];
 
   return (
     <footer className="z-40">
@@ -22,11 +20,8 @@ const Footer = ({ isTestimonials }: { isTestimonials: boolean }) => {
             return (
               <ul key={id} className=" flex flex-col gap-y-3">
                 <h1 className="font-semibold text-lg">{links.title}</h1>
-                {links.links
-                  .filter(
-                    (link) => !isTestimonials && link.name !== "Testimonials"
-                  )
-                  .map(({ id, name, link }) => (
+                {filterLinks(links.links, isTestimonials).map(
+                  ({ id, name, link }) => (
                     <Link
                       key={id}
                       href={link}
@@ -34,7 +29,8 @@ const Footer = ({ isTestimonials }: { isTestimonials: boolean }) => {
                     >
                       <li>{name}</li>
                     </Link>
-                  ))}
+                  )
+                )}
               </ul>
             );
           })}

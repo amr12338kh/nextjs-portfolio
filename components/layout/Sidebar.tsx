@@ -20,6 +20,7 @@ import { footerLinks } from "@/data";
 import AdminDropdown from "./AdminDropdown";
 import { Button } from "../ui/button";
 import Logo from "../Logo";
+import { filterLinks } from "@/lib/utils";
 
 const Sidebar = ({
   isTestimonials,
@@ -73,12 +74,8 @@ const Sidebar = ({
                     {links.title}
                   </AccordionTrigger>
                   <div className="space-y-1 px-4">
-                    {links.links
-                      .filter(
-                        (link) =>
-                          !isTestimonials && link.name !== "Testimonials"
-                      )
-                      .map(({ id, name, link }) => (
+                    {filterLinks(links.links, isTestimonials).map(
+                      ({ id, name, link }) => (
                         <AccordionContent key={id} className="pb-0 pt-1">
                           <Link
                             href={link}
@@ -87,7 +84,8 @@ const Sidebar = ({
                             {name}
                           </Link>
                         </AccordionContent>
-                      ))}
+                      )
+                    )}
                   </div>
                 </AccordionItem>
               </Accordion>

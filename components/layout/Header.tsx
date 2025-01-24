@@ -12,6 +12,7 @@ import { Session } from "next-auth";
 import AdminDropdown from "./AdminDropdown";
 import { checkAdminStatus } from "@/lib/actions";
 import Logo from "../Logo";
+import { filterLinks } from "@/lib/utils";
 
 const Header = ({
   session,
@@ -64,9 +65,8 @@ const Header = ({
         </Link>
         <div className="flex gap-8 items-center">
           <ul className="hidden sm:flex gap-10">
-            {headerLinks
-              .filter((link) => !isTestimonials && link.name !== "Testimonials")
-              .map(({ id, name, link }) => {
+            {filterLinks(headerLinks, isTestimonials).map(
+              ({ id, name, link }) => {
                 const hashPart = link.includes("#")
                   ? `#${link.split("#")[1]}`
                   : "";
@@ -95,7 +95,8 @@ const Header = ({
                     )}
                   </Link>
                 );
-              })}
+              }
+            )}
           </ul>
           {isAdmin && (
             <>

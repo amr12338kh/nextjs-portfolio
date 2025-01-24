@@ -1,3 +1,4 @@
+import { LinksProps } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -48,3 +49,8 @@ export const areArraysEqual = (arr1: any[], arr2: any[]) => {
     );
   });
 };
+
+export const filterLinks = (links: LinksProps[], isTestimonials: boolean) =>
+  links.filter((link) =>
+    !isTestimonials ? link.name !== "Testimonials" : true
+  );
