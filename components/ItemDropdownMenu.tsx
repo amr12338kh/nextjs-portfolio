@@ -49,7 +49,7 @@ const ItemDropdownMenu = ({
         align={isMobile ? "end" : "start"}
       >
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <Link href={`dashboard/edit/${type}/${_id}`}>
+        <Link href={`/dashboard/edit/${type}/${_id}`}>
           <DropdownMenuItem>
             <Edit className="mr-2 size-4" />
             <span>Edit Item</span>

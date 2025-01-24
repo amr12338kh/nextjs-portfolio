@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Edit, Home, LayoutDashboard, PackagePlus } from "lucide-react";
+import { Home, LayoutDashboard, PackagePlus } from "lucide-react";
 
 import { NavMain } from "@/components/layout/NavMain";
 import { NavLatestItems } from "@/components/layout/NavLatestItems";

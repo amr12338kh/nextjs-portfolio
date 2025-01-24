@@ -70,7 +70,6 @@ const EndCommonColumns: ColumnDef<TableDataProps>[] = [
 
       return (
         <ItemDropdownMenu
-          // className="sr-only"
           _id={model._id || ""}
           title={model.title}
           open={open}
