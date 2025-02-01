@@ -32,7 +32,7 @@ const ProjectCard = ({
               src={project.image || "/images/placeholder.jpg"}
               alt={project.title || "Project Image"}
               fill
-              className="object-cover transform group-hover:scale-105 transition-transform duration-500"
+              className="object-contain transform group-hover:scale-105 transition-transform duration-500"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority={index < 3}
             />
