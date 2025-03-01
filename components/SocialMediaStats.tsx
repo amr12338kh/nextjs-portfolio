@@ -14,11 +14,11 @@ const SocialMediaStats = ({
       <div className="flex flex-wrap justify-center gap-20 sm:gap-28 z-10">
         <StatCard label="followers" platform="github" value={githubFollowers} />
         <StatCard label="stars" platform="github" value={totalStars} />
-        <StatCard
+        {/* <StatCard
           label="followers"
           platform="instagram"
           value={instagramFollowers}
-        />
+        /> */}
       </div>
     </GridBackground>
   );
