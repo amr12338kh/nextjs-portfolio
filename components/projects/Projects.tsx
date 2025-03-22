@@ -9,7 +9,13 @@ const Projects = async () => {
 
   return (
     <>
-      <SectionTitle title="Projects" />
+      <div className="text-center mb-10">
+        <SectionTitle
+          title="My Works"
+          subtitle="A collection of my latest development projects"
+          variant="secondary"
+        />
+      </div>
       <ProjectCarousel projects={projects} />
     </>
   );

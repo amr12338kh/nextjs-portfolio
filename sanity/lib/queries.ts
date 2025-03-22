@@ -6,6 +6,18 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project" && defined(slug.current)
     slug,
     image,
     _createdAt,
+    sections[]{
+      _key,
+      image,
+      text,
+      subText
+    },
+    "skills": skills[]->{
+      _id,
+      title,
+      image,
+      isDark
+    },
   }`;
 
 export const PROJECT_QUERY = `*[_type == "project" && defined(slug.current) && _id == $id][0]

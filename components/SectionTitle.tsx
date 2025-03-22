@@ -47,12 +47,7 @@ const SectionTitle = ({
 
   return variant === "primary" ? (
     <div className={cn("relative text-center mb-20", className)}>
-      <h1
-        className={cn(
-          "text-4xl sm:text-5xl font-bold tracking-wider",
-          className
-        )}
-      >
+      <h1 className={cn("text-4xl sm:text-5xl font-bold", className)}>
         {title}
       </h1>
       {textAmbient && <TextAmbient />}
