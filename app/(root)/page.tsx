@@ -20,7 +20,7 @@ export default async function Home() {
   ]);
 
   return (
-    <section className="px-5 md:px-10">
+    <main>
       <Section id="home" className="pt-40 pb-20">
         <Hero />
       </Section>
@@ -52,6 +52,6 @@ export default async function Home() {
           <ContactForm />
         </ContactFormContainer>
       </Section>
-    </section>
+    </main>
   );
 }

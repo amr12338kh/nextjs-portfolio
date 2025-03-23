@@ -11,7 +11,7 @@ const Footer = ({ isTestimonials }: { isTestimonials: boolean }) => {
 
   return (
     <footer className="z-40">
-      <div className="max-w-7xl py-10 flex flex-col gap-14 bg-background/30 px-5 md:px-10 saturate-100 shadow-sm backdrop-blur-[10px] rounded-2xl transition-colors">
+      <div className="py-10 flex flex-col gap-14 bg-background/30 px-5 sm:px-10 saturate-100 shadow-sm backdrop-blur-[10px] rounded-2xl transition-colors">
         <div>
           <Spotify />
         </div>

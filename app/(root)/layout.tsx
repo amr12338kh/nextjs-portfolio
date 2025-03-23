@@ -15,7 +15,7 @@ export default async function RootLayout({
   const isTestimonials = testimonials.length > 0;
 
   return (
-    <main className="max-w-7xl mx-auto">
+    <main className=" container mx-auto px-0 sm:px-5">
       <Header
         session={session ? session : undefined}
         isTestimonials={isTestimonials}

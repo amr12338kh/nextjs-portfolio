@@ -1,8 +1,7 @@
-import ProjectCarousel from "./ProjectCarousel";
 import SectionTitle from "../SectionTitle";
-import { Suspense } from "react";
 import { client } from "@/sanity/lib/client";
 import { ALL_PROJECTS_QUERY } from "@/sanity/lib/queries";
+import { LatestProjectsCarousel } from "./LatestProjectsCarousel";
 
 const Projects = async () => {
   const projects = await client.fetch(ALL_PROJECTS_QUERY);
@@ -16,7 +15,7 @@ const Projects = async () => {
           variant="secondary"
         />
       </div>
-      <ProjectCarousel projects={projects} />
+      <LatestProjectsCarousel projects={projects} />
     </>
   );
 };

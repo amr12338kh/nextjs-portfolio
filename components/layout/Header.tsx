@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ModeToggle } from "../Themes/ModeToggle";
 import { Separator } from "../ui/separator";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Sidebar from "./Sidebar";
 import { headerLinks } from "@/data";
 import { usePathname } from "next/navigation";
@@ -24,6 +24,7 @@ const Header = ({
   const pathname = usePathname();
   const [activeHash, setActiveHash] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
@@ -43,10 +44,16 @@ const Header = ({
       setActiveHash(window.location.hash);
     };
 
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
     window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -54,68 +61,86 @@ const Header = ({
     setActiveHash(targetHash);
   };
 
+  const filteredLinks = filterLinks(headerLinks, isTestimonials);
+
   return (
     <motion.header
       {...animation}
-      className="fixed top-5 w-full max-w-7xl z-40 bg-background/30 saturate-100 shadow-sm backdrop-blur-[10px] rounded-2xl transition-colors"
+      className={`fixed top-5 left-0 right-0 mx-auto max-w-5xl z-40 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/80 shadow-md backdrop-blur-lg rounded-xl"
+          : "bg-background/30 shadow-sm backdrop-blur-[10px] rounded-2xl"
+      }`}
     >
-      <div className="flex justify-between items-center h-14 px-5 md:px-10">
-        <Link href="/#home" onClick={() => handleLinkClick("#home")}>
+      <div className="flex justify-between items-center h-14 px-5">
+        <Link
+          href="/#home"
+          onClick={() => handleLinkClick("#home")}
+          className="flex items-center transition-transform duration-200 hover:scale-105"
+        >
           <Logo />
         </Link>
-        <div className="flex gap-8 items-center">
-          <ul className="hidden sm:flex gap-10">
-            {filterLinks(headerLinks, isTestimonials).map(
-              ({ id, name, link }) => {
+
+        <div className="flex items-center">
+          <nav className="hidden sm:block mr-6">
+            <ul className="flex gap-6 md:gap-8">
+              {filteredLinks.map(({ id, name, link }) => {
                 const hashPart = link.includes("#")
                   ? `#${link.split("#")[1]}`
                   : "";
+                const isActive = activeHash === hashPart && pathname === "/";
 
                 return (
-                  <Link
-                    key={id}
-                    href={link}
-                    className="relative"
-                    onClick={() => handleLinkClick(hashPart)}
-                  >
-                    <li
-                      className={`text-muted-foreground hover:text-primary duration-150 font-semibold ${
-                        activeHash === hashPart &&
-                        pathname === "/" &&
-                        "text-primary"
-                      }`}
+                  <li key={id} className="relative">
+                    <Link
+                      href={link}
+                      onClick={() => handleLinkClick(hashPart)}
+                      className={`relative px-1 py-2 font-medium transition-colors duration-200
+                        ${
+                          isActive
+                            ? "text-primary"
+                            : "text-muted-foreground hover:text-primary"
+                        }`}
                     >
                       {name}
-                    </li>
-                    {activeHash === hashPart && pathname === "/" && (
-                      <>
-                        <div className="absolute -bottom-[16px] left-1/2 size-3 -translate-x-1/2 rounded-[4px] bg-[rgb(255_122_151)] blur dark:blur-[10px] dark:bg-[rgb(223_29_72)]" />
-                        <div className="absolute -bottom-[15px] left-1/2 -translate-x-1/2 w-[30px] h-[0.5px] bg-[rgb(255_122_151)] blur-[1px] dark:bg-[rgb(223_29_72)]" />
-                      </>
-                    )}
-                  </Link>
+
+                      <AnimatePresence>
+                        {isActive && (
+                          <motion.div
+                            initial={{ opacity: 0, width: 0 }}
+                            animate={{ opacity: 1, width: "100%" }}
+                            exit={{ opacity: 0, width: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute -bottom-1 left-0 h-0.5 bg-primary rounded-full"
+                          />
+                        )}
+                      </AnimatePresence>
+                    </Link>
+                  </li>
                 );
-              }
-            )}
-          </ul>
+              })}
+            </ul>
+          </nav>
+
           {isAdmin && (
-            <>
-              <Separator
-                orientation="vertical"
-                className="h-6 hidden sm:block"
-              />
-              <div className=" hidden sm:block">
-                <AdminDropdown />
-              </div>
-            </>
+            <div className="hidden sm:flex items-center">
+              <Separator orientation="vertical" className="h-6 mx-2" />
+              <AdminDropdown />
+            </div>
           )}
-          <Separator orientation="vertical" className="h-6 hidden sm:block" />
-          <div>
+
+          <div className="flex items-center">
+            <Separator
+              orientation="vertical"
+              className="h-6 hidden sm:block mx-2"
+            />
             <ModeToggle />
-          </div>
-          <Separator orientation="vertical" className="h-6 sm:hidden" />
-          <div className="sm:hidden">
-            <Sidebar isTestimonials={isTestimonials} isAdmin={isAdmin} />
+            <div className="sm:hidden ml-2">
+              <Separator orientation="vertical" className="h-6" />
+            </div>
+            <div className="sm:hidden ml-2">
+              <Sidebar isTestimonials={isTestimonials} isAdmin={isAdmin} />
+            </div>
           </div>
         </div>
       </div>
@@ -126,7 +151,7 @@ const Header = ({
 export default Header;
 
 const animation = {
-  initial: { opacity: 0, y: -50 },
+  initial: { opacity: 0, y: -20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.3 },
+  transition: { duration: 0.4, ease: "easeOut" },
 };

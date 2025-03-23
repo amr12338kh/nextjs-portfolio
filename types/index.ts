@@ -111,6 +111,7 @@ export interface ProjectFormProps {
 export interface ProjectProps {
   _id?: string;
   _type?: "project";
+  createdAt?: string;
   _createdAt?: string;
   _updatedAt?: string;
   id?: string;

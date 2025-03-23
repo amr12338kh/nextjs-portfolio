@@ -1,4 +1,4 @@
-import { LinksProps } from "@/types";
+import { LinksProps, ProjectProps } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -54,3 +54,24 @@ export const filterLinks = (links: LinksProps[], isTestimonials: boolean) =>
   links.filter((link) =>
     !isTestimonials ? link.name !== "Testimonials" : true
   );
+
+export const groupProjectsByYear = (projects: ProjectProps[]) => {
+  const groupedProjects: Record<string, ProjectProps[]> = {};
+
+  projects.forEach((project) => {
+    const dateString = project._createdAt;
+
+    if (dateString) {
+      const year = new Date(dateString).getFullYear().toString();
+
+      if (!groupedProjects[year]) {
+        groupedProjects[year] = [];
+      }
+      groupedProjects[year].push(project);
+    }
+  });
+
+  return Object.entries(groupedProjects).sort(
+    ([yearA], [yearB]) => parseInt(yearB) - parseInt(yearA)
+  );
+};

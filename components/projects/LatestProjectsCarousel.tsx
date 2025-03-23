@@ -15,25 +15,32 @@ import ProjectCard from "./ProjectCard";
 import Link from "next/link";
 import { ProjectProps } from "@/types";
 
-interface ProjectCarouselProps {
+export const LatestProjectsCarousel = ({
+  projects,
+}: {
   projects: ProjectProps[];
-}
-
-const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
+}) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const latestProjects = [...projects]
+    .sort((a, b) => {
+      const dateA = a._createdAt;
+      const dateB = b._createdAt;
+
+      if (!dateA || !dateB) return 0;
+      return new Date(dateB).getTime() - new Date(dateA).getTime();
+    })
+    .slice(0, 3);
+
   useEffect(() => {
-    if (!api) {
-      return;
-    }
+    if (!api) return;
 
     const onSelect = () => {
       setCurrentSlide(api.selectedScrollSnap());
     };
 
     api.on("select", onSelect);
-
     setCurrentSlide(api.selectedScrollSnap());
 
     return () => {
@@ -51,9 +58,9 @@ const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
     <div>
       <Carousel setApi={setApi}>
         <CarouselContent>
-          {projects.map((project, index: number) => (
+          {latestProjects.map((project, index: number) => (
             <CarouselItem
-              key={"Project " + index}
+              key={`latest-project-${index}`}
               className="sm:basis-1/2 lg:basis-1/3"
             >
               <ProjectCard project={project} index={index} />
@@ -63,7 +70,7 @@ const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
         <div className="lg:hidden flex justify-center gap-4 mt-5">
           <CarouselPrevious className="rounded-lg" />
           <div className="flex justify-center gap-2 mt-4">
-            {projects.map((_, index) => (
+            {latestProjects.map((_, index) => (
               <button
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
@@ -80,7 +87,7 @@ const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
         </div>
 
         <div className="text-center mt-10">
-          <Link href="/projects" className="group">
+          <Link href="/project" className="group">
             <Button>
               Explore More
               <MoveRight className="group-hover:translate-x-1 transition-transform duration-200" />
@@ -91,5 +98,3 @@ const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
     </div>
   );
 };
-
-export default ProjectCarousel;
