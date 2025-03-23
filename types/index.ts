@@ -75,7 +75,7 @@ export interface InstagramStatsProps {
 }
 
 export interface SocialMediaStatsProps extends GitHubDataProps {
-  instagramFollowers: number;
+  instagramFollowers?: number;
 }
 
 export interface TableDataProps extends CommonProps {

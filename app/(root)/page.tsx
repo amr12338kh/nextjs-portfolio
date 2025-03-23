@@ -13,7 +13,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 
 export default async function Home() {
   const githubStats = await getGitHubStats();
-  const instagramStats = await getInstagramStats();
+  // const instagramStats = await getInstagramStats();
   const [skills, testimonials] = await Promise.all([
     client.fetch(ALL_SKILLS_QUERY),
     client.fetch(ALL_TESTIMONIALS_QUERY),
@@ -43,7 +43,7 @@ export default async function Home() {
         <SocialMediaStats
           githubFollowers={githubStats?.followers}
           totalStars={githubStats?.totalStars}
-          instagramFollowers={instagramStats?.followers}
+          // instagramFollowers={instagramStats?.followers}
         />
       </Section>
 
