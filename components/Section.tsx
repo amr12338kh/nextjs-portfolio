@@ -14,7 +14,10 @@ const Section = ({
   return (
     <section
       id={id}
-      className={cn(variant === "primary" ? "py-24" : "py-32", className)}
+      className={cn(
+        variant === "primary" ? "py-16 sm:py-24" : "py-24 sm:py-32",
+        className
+      )}
     >
       {children}
     </section>

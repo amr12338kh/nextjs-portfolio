@@ -10,8 +10,9 @@ import { NowPlayingItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export const Spotify = () => {
+export const Spotify = ({ className }: { className?: string }) => {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -100,30 +101,32 @@ export const Spotify = () => {
   }
 
   return (
-    <div className="rounded-lg">
+    <div className={cn(className)}>
       <div className="flex gap-2 items-center">
         <Image src="/svg/spotify.svg" alt="spotify" width={22} height={22} />
         <span className="font-semibold text-sm">Now playing:</span>
       </div>
-      <Link
-        className="flex gap-2 flex-wrap items-center mt-4"
-        href={nowPlaying.songUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {nowPlaying.albumImageUrl && (
-          <Image
-            src={nowPlaying.albumImageUrl}
-            alt={`${nowPlaying.title} album art`}
-            width={32}
-            height={32}
-            className="rounded-md"
-          />
-        )}
-        <p>{nowPlaying.title}</p>
-        <span>—</span>
-        <p>{nowPlaying.artist}</p>
-      </Link>
+      <div className="flex mt-4">
+        <Link
+          className="flex gap-2 items-center flex-wrap"
+          href={nowPlaying.songUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {nowPlaying.albumImageUrl && (
+            <Image
+              src={nowPlaying.albumImageUrl}
+              alt={`${nowPlaying.title} album art`}
+              width={32}
+              height={32}
+              className="rounded-md"
+            />
+          )}
+          <p>{nowPlaying.title}</p>
+          <span>—</span>
+          <p className="line-clamp-1">{nowPlaying.artist}</p>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,21 +1,23 @@
-import SectionTitle from "../SectionTitle";
 import { client } from "@/sanity/lib/client";
 import { ALL_PROJECTS_QUERY } from "@/sanity/lib/queries";
-import { LatestProjectsCarousel } from "./LatestProjectsCarousel";
+import ProjectsCarousel from "./Carousel/ProjectsCarousel";
+import AnimatedTitle from "../AnimatedTitle";
+import UnderLine from "../UnderLine";
 
 const Projects = async () => {
   const projects = await client.fetch(ALL_PROJECTS_QUERY);
 
   return (
     <>
-      <div className="text-center mb-10">
-        <SectionTitle
-          title="My Works"
+      <div className="mb-10">
+        <AnimatedTitle
+          title="My Projects"
           subtitle="A collection of my latest development projects"
-          variant="secondary"
+          titleClassName="text-4xl sm:text-5xl "
         />
+        <UnderLine lineClassName="!mx-0" />
       </div>
-      <LatestProjectsCarousel projects={projects} />
+      <ProjectsCarousel projects={projects} showExploreMore />
     </>
   );
 };

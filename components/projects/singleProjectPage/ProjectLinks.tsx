@@ -10,30 +10,53 @@ import {
 } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { ProjectProps } from "@/types";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const ProjectLinks = ({ project }: { project: ProjectProps }) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       {project.githubLink && (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                size="xs"
-                className="hover:scale-105 transition-transform"
-                asChild
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-lg"
               >
-                <Link
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "flex items-center gap-2 rounded-lg",
+                    "bg-muted/50 hover:bg-muted",
+                    "border-muted-foreground/20 hover:border-primary/50",
+                    "transition-all duration-300",
+                    "group"
+                  )}
+                  asChild
                 >
-                  <Github className="size-2" />
-                </Link>
-              </Button>
+                  <Link
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <Github
+                      className={cn(
+                        "size-4 text-muted-foreground",
+                        "group-hover:text-primary",
+                        "transition-colors duration-300"
+                      )}
+                    />
+                    <span className="text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors">
+                      GitHub
+                    </span>
+                  </Link>
+                </Button>
+              </motion.div>
             </TooltipTrigger>
-            <TooltipContent>View Source Code</TooltipContent>
+            <TooltipContent side="bottom">View Source Code</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       )}
@@ -42,22 +65,43 @@ const ProjectLinks = ({ project }: { project: ProjectProps }) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="default"
-                size="xs"
-                className="hover:scale-105 transition-transform"
-                asChild
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-lg"
               >
-                <Link
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Button
+                  variant="default"
+                  className={cn(
+                    "flex items-center gap-2 rounded-lg",
+                    "bg-primary hover:bg-primary/90",
+                    "shadow-md hover:shadow-lg",
+                    "transition-all duration-300",
+                    "group"
+                  )}
+                  asChild
                 >
-                  <Globe className="size-2" />
-                </Link>
-              </Button>
+                  <Link
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <Globe
+                      className={cn(
+                        "size-4 text-primary-foreground",
+                        "group-hover:scale-110",
+                        "transition-transform duration-300"
+                      )}
+                    />
+                    <span className="text-xs font-medium text-primary-foreground">
+                      Live Site
+                    </span>
+                  </Link>
+                </Button>
+              </motion.div>
             </TooltipTrigger>
-            <TooltipContent>Visit Live Site</TooltipContent>
+            <TooltipContent side="bottom">Visit Live Site</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       )}

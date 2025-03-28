@@ -14,6 +14,17 @@ export function formatDate(date: string) {
   });
 }
 
+export const formatNumber = (stars: number): string => {
+  if (stars >= 1000) {
+    return `${(stars / 1000).toFixed(1)}K`;
+  }
+  return stars.toString();
+};
+
+export const getCurrentYear = (): number => {
+  return new Date().getFullYear();
+};
+
 export function formatCamelCase(text: string): string {
   // Add space before capital letters
   return text

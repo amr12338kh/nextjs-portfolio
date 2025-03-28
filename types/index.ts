@@ -1,3 +1,4 @@
+import { CarouselApi } from "@/components/ui/carousel";
 import { Sidebar } from "@/components/ui/sidebar";
 import { Project, Skill, Testimonial } from "@/sanity/types";
 import { User } from "next-auth";
@@ -248,4 +249,39 @@ export interface ItemDropdownMenuProps {
   setOpen: (value: boolean) => void;
   className?: string;
   isSidebar?: boolean;
+}
+
+export interface ProjectsCarouselProps {
+  projects: ProjectProps[] | [string, ProjectProps[]][];
+  className?: string;
+  mode?: "latest" | "yearly";
+  title?: string;
+  showExploreMore?: boolean;
+  exploreMoreLink?: string;
+}
+
+export interface CarouselDotNavigationProps {
+  projectsToRender: ProjectProps[];
+  currentSlide: number;
+  api: CarouselApi | null;
+}
+
+export interface CarouselMobileNavigationProps
+  extends CarouselDotNavigationProps {
+  mode: "latest" | "yearly";
+}
+
+export interface ProjectCarouselViewProps {
+  projectsToRender: ProjectProps[];
+  yearTitle?: string;
+  mode?: "latest" | "yearly";
+}
+
+export interface AnimatedTitleProps {
+  title: string;
+  subtitle?: string;
+  variant?: "primary" | "secondary" | "third";
+  titleClassName?: string;
+  subtitleClassName?: string;
+  containerClassName?: string;
 }

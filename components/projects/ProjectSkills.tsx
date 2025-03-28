@@ -1,3 +1,5 @@
+"use client";
+
 import { ProjectProps } from "@/types";
 import React from "react";
 import Hover from "../ui/Hover";

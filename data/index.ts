@@ -110,8 +110,4 @@ export const footerLinks: FooterProps[] = [
   },
 ];
 
-export const aboutWords: string = `I'm Amr, a passionate Front-End Web Developer with a
-            specialization in Next.js, the cutting-edge React framework. If
-            you're seeking a skilled professional to transform your web
-            project into a seamless and dynamic user experience, you've
-            come to the right place.`;
+export const aboutWords: string = `I'm Amr, a passionate Front-End Web Developer with a specialization in Next.js, the cutting-edge React framework. If you're seeking a skilled professional to transform your web project into a seamless and dynamic user experience, you've come to the right place.`;

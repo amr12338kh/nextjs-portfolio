@@ -3,17 +3,12 @@ import Hero from "@/components/hero/Hero";
 import About from "@/components/about/About";
 import Projects from "@/components/projects/Projects";
 import Testimonials from "@/components/Testimonials";
-import SocialMediaStats from "@/components/SocialMediaStats";
-import { getGitHubStats } from "@/lib/github";
-import { getInstagramStats } from "@/lib/instagram";
 import { client } from "@/sanity/lib/client";
 import { ALL_SKILLS_QUERY, ALL_TESTIMONIALS_QUERY } from "@/sanity/lib/queries";
 import { ContactFormContainer } from "@/components/contact/ContactFormContainer";
 import { ContactForm } from "@/components/contact/ContactForm";
 
 export default async function Home() {
-  const githubStats = await getGitHubStats();
-  // const instagramStats = await getInstagramStats();
   const [skills, testimonials] = await Promise.all([
     client.fetch(ALL_SKILLS_QUERY),
     client.fetch(ALL_TESTIMONIALS_QUERY),
@@ -21,7 +16,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Section id="home" className="pt-40 pb-20">
+      <Section id="home" className="sm:!pt-40 sm:!pb-20">
         <Hero />
       </Section>
 
@@ -38,14 +33,6 @@ export default async function Home() {
           <Testimonials testimonials={testimonials} />
         </Section>
       )}
-
-      <Section>
-        <SocialMediaStats
-          githubFollowers={githubStats?.followers}
-          totalStars={githubStats?.totalStars}
-          // instagramFollowers={instagramStats?.followers}
-        />
-      </Section>
 
       <Section id="contact">
         <ContactFormContainer>

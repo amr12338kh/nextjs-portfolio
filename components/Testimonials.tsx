@@ -1,7 +1,7 @@
 import { CircleUserRound } from "lucide-react";
 import { InfiniteMovingCards } from "./ui/InfiniteMovingCards";
-import SectionTitle from "./SectionTitle";
 import { TestimonialsProps } from "@/types";
+import AnimatedTitle from "./AnimatedTitle";
 
 const Testimonials = async ({
   testimonials,
@@ -10,7 +10,7 @@ const Testimonials = async ({
 }) => {
   return (
     <>
-      <SectionTitle title="What others saying" />
+      <AnimatedTitle title="What others saying" />
       <div className=" relative">
         <InfiniteMovingCards
           direction="right"
