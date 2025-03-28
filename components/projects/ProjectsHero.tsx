@@ -2,7 +2,6 @@
 
 import React from "react";
 import Section from "../Section";
-import SectionTitle from "../SectionTitle";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { GiProgression } from "react-icons/gi";
 import { BiCodeAlt } from "react-icons/bi";
