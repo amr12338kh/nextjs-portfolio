@@ -8,40 +8,13 @@ import { motion, AnimatePresence, delay } from "framer-motion";
 import Sidebar from "./Sidebar";
 import { headerLinks } from "@/data";
 import { usePathname } from "next/navigation";
-import { Session } from "next-auth";
-import AdminDropdown from "./AdminDropdown";
-import { checkAdminStatus } from "@/lib/actions";
 import Logo from "../Logo";
 import { filterLinks } from "@/lib/utils";
 
-const Header = ({
-  session,
-  isTestimonials,
-}: {
-  session?: Session;
-  isTestimonials: boolean;
-}) => {
+const Header = ({ isTestimonials }: { isTestimonials: boolean }) => {
   const pathname = usePathname();
   const [activeHash, setActiveHash] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  // const [isLoaded, setIsLoaded] = useState(false);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setIsLoaded(true), 100);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-  useEffect(() => {
-    if (session?.user) {
-      const fetchAdminStatus = async () => {
-        const isAdmin = await checkAdminStatus();
-        setIsAdmin(isAdmin);
-      };
-
-      fetchAdminStatus();
-    }
-  }, [session]);
 
   useEffect(() => {
     setActiveHash(window.location.hash);
@@ -265,25 +238,6 @@ const Header = ({
             </ul>
           </nav>
 
-          {isAdmin && (
-            <motion.div
-              className="hidden sm:flex items-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                transition: {
-                  duration: 0.6,
-                  delay: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                },
-              }}
-            >
-              <Separator orientation="vertical" className="h-6 mx-2" />
-              <AdminDropdown />
-            </motion.div>
-          )}
-
           <motion.div className="flex items-center" variants={controlsVariants}>
             <Separator
               orientation="vertical"
@@ -299,7 +253,7 @@ const Header = ({
               className="sm:hidden ml-2"
               variants={controlItemVariants}
             >
-              <Sidebar isTestimonials={isTestimonials} isAdmin={isAdmin} />
+              <Sidebar isTestimonials={isTestimonials} />
             </motion.div>
           </motion.div>
         </div>

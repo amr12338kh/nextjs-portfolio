@@ -1,9 +1,5 @@
 import { CarouselApi } from "@/components/ui/carousel";
-import { Sidebar } from "@/components/ui/sidebar";
-import { Project, Skill, Testimonial } from "@/sanity/types";
-import { User } from "next-auth";
-import { Dispatch, SetStateAction } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { Skill } from "@/sanity/types";
 
 export interface LinksProps {
   id: number;
@@ -71,42 +67,11 @@ export interface StatCardProps {
   value: number;
 }
 
-export interface InstagramStatsProps {
-  followers: number;
-}
-
-export interface SocialMediaStatsProps extends GitHubDataProps {
-  instagramFollowers?: number;
-}
-
-export interface TableDataProps extends CommonProps {
-  projectType: Project["_type"];
-  skillType: Skill["_type"];
-  testimonialType: Testimonial["_type"];
-  _type: string;
-  username?: string;
-  _id?: string;
-  isDark?: boolean;
-}
-
-interface CommonProps {
-  id: string;
-  title: string;
-  description: string;
-}
-
 export interface SectionsProps {
   _key?: string;
   image: string;
   text: string;
   subText: string;
-}
-
-export interface ProjectFormProps {
-  initialData?: ProjectProps;
-  skills: Skill[];
-  mode: "create" | "edit";
-  projectId?: string;
 }
 
 export interface ProjectProps {
@@ -133,75 +98,10 @@ export interface SkillProps {
   isDark: boolean;
 }
 
-export interface SelectSkillsProps {
-  skills: Skill[];
-  setFormData: Dispatch<SetStateAction<ProjectProps>>;
-  initialSkills?: Skill[];
-  resetKey?: number;
-}
-
-export interface SkillFormProps {
-  initialData?: SkillProps;
-  mode: "create" | "edit";
-  skillId?: string;
-}
-
 export interface SkillReference {
   _type: "reference";
   _ref: string;
   _key: string;
-}
-
-export type NewProjectFormSchema =
-  | {
-      link?: string;
-      title?: string;
-      image: string;
-      tagline?: string;
-      description?: string;
-      githubLink?: string;
-      skills?: Array<{
-        title: string;
-        image: string;
-        _id: string;
-        isDark: boolean | null;
-      }>;
-      sections?: Array<{
-        text: string;
-        subText: string;
-        image: string;
-      }>;
-    }
-  | {
-      text: string;
-      subText: string;
-      image: string;
-    };
-
-export interface AddImageProps {
-  size: "big" | "small" | "big-skill";
-  form: UseFormReturn<any>;
-  counter?: number;
-  mainImage?: string;
-  setMainImage?: (value: string) => void;
-  sectionImage?: string;
-  setSectionImage?: (value: string) => void;
-  setSkillFormData?: Dispatch<SetStateAction<SkillProps>>;
-  setFormData?: Dispatch<SetStateAction<ProjectProps>>;
-}
-
-export interface ImagePreviewProps {
-  imageUrl?: string;
-  onRemove: () => void;
-  size: "big" | "small" | "big-skill";
-}
-
-export interface AddSectionsProps {
-  sectionImage: string;
-  setSectionImage: (e: string) => void;
-  open: boolean;
-  setOpen: (e: boolean) => void;
-  setFormData: Dispatch<SetStateAction<ProjectProps>>;
 }
 
 export interface TestimonialsProps {
@@ -211,44 +111,6 @@ export interface TestimonialsProps {
   username: string;
   job_title: string;
   user_message: string;
-}
-
-export interface TestimonialsFormProps {
-  initialData?: TestimonialsProps;
-  mode: "create" | "edit";
-  testimonialId?: string;
-}
-
-export interface DashboardSidebarProps
-  extends React.ComponentProps<typeof Sidebar> {
-  user?: User;
-  latestModels?: LatestModelsProps;
-}
-
-export interface LatestModelsProps {
-  latestProject: Project;
-  latestSkill: Skill;
-  latestTestimonial: TestimonialsProps;
-}
-
-export interface DeleteAlertProps {
-  modelId?: string;
-  modelName?: string;
-  isSingle: boolean;
-  ids?: string[];
-  open?: boolean;
-  setOpen: (value: boolean) => void;
-  onDeleteComplete?: () => void;
-}
-
-export interface ItemDropdownMenuProps {
-  _id: string;
-  type: string;
-  title: string;
-  open: boolean;
-  setOpen: (value: boolean) => void;
-  className?: string;
-  isSidebar?: boolean;
 }
 
 export interface ProjectsCarouselProps {

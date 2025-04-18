@@ -18,18 +18,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { footerLinks } from "@/data";
-import AdminDropdown from "./AdminDropdown";
 import Logo from "../Logo";
 import { filterLinks } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Sidebar = ({
-  isTestimonials,
-  isAdmin,
-}: {
-  isTestimonials: boolean;
-  isAdmin: boolean;
-}) => {
+const Sidebar = ({ isTestimonials }: { isTestimonials: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -75,20 +68,9 @@ const Sidebar = ({
               </SheetTitle>
             </motion.div>
 
+            <Separator />
+
             <nav className="space-y-8">
-              {isAdmin && (
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="p-4 rounded-xl bg-muted/50 border shadow-sm"
-                >
-                  <AdminDropdown />
-                </motion.div>
-              )}
-
-              <Separator />
-
               {footerLinks.map((links, id) => (
                 <motion.div
                   key={id}
