@@ -1,0 +1,4 @@
+/* Hide the Sentry bug report button */
+#sentry-feedback {
+  display: none !important;
+}
