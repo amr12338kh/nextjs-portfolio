@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
 interface ProfileImgProps {
   isSmall?: boolean;
@@ -10,13 +10,7 @@ interface ProfileImgProps {
 
 const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
   const sizeClasses = isSmall ? "mb-10 md:hidden" : "hidden md:block";
-  const [loaded, setLoaded] = useState(false);
-
-  // Detect when image is loaded to trigger animations
-  useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Main container animations
   const containerVariants = {
@@ -91,12 +85,42 @@ const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
     },
   };
 
+  // Image blur animation
+  const imageVariants = {
+    initial: {
+      filter: "blur(20px)",
+      scale: 1.1,
+    },
+    animate: {
+      filter: "blur(0px)",
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  // Placeholder animation while image loads
+  const placeholderVariants = {
+    initial: {
+      opacity: 1,
+    },
+    animate: {
+      opacity: 0,
+      transition: {
+        duration: 0.4,
+        delay: 0.2,
+      },
+    },
+  };
+
   return (
     <motion.div
       className={`relative ${sizeClasses}`}
       variants={containerVariants}
       initial="initial"
-      animate={loaded ? "animate" : "initial"}
+      animate="animate"
     >
       <motion.div
         className="profile_pic rounded-full relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 overflow-hidden"
@@ -106,23 +130,46 @@ const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.2 }}
       >
-        <Image
-          src="/Amr3.jpg"
-          alt="Amr's Profile Picture"
-          fill
-          priority={isSmall}
-          quality={80}
-          style={{ objectFit: "cover" }}
-          sizes="(min-width: 1024px) 288px, (min-width: 768px) 224px, 192px"
-          onLoad={() => setLoaded(true)}
+        {/* Loading placeholder with pulse animation */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-muted/70 to-muted/90"
+          variants={placeholderVariants}
+          initial="initial"
+          animate={imageLoaded ? "animate" : "initial"}
+          style={{
+            animation: !imageLoaded
+              ? "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+              : "none",
+          }}
         />
+
+        {/* Image with blur animation */}
+        <motion.div
+          className="w-full h-full"
+          variants={imageVariants}
+          initial="initial"
+          animate={imageLoaded ? "animate" : "initial"}
+        >
+          <Image
+            src="/Amr3.jpg"
+            alt="Amr's Profile Picture"
+            fill
+            priority={isSmall}
+            quality={90}
+            style={{ objectFit: "cover" }}
+            sizes="(min-width: 1024px) 288px, (min-width: 768px) 224px, 192px"
+            onLoad={() => {
+              setImageLoaded(true);
+            }}
+          />
+        </motion.div>
       </motion.div>
 
       <motion.div
         className="absolute inset-0 -z-10 bg-gradient-to-tl from-purple-700 to-orange-700 blur-2xl"
         variants={glowVariants}
         initial="initial"
-        animate={loaded ? "animate" : "initial"}
+        animate="animate"
       />
 
       <motion.div
@@ -130,7 +177,7 @@ const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
         aria-hidden="true"
         variants={decorVariants}
         initial="initial"
-        animate={loaded ? "animate" : "initial"}
+        animate="animate"
       />
 
       <motion.div
@@ -138,7 +185,7 @@ const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
         aria-hidden="true"
         variants={decorVariants}
         initial="initial"
-        animate={loaded ? "animate" : "initial"}
+        animate="animate"
       />
 
       <motion.div
@@ -146,7 +193,7 @@ const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
         aria-hidden="true"
         variants={borderVariants}
         initial="initial"
-        animate={loaded ? "animate" : "initial"}
+        animate="animate"
       />
     </motion.div>
   );
