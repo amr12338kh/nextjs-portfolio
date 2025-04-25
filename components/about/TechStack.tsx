@@ -1,6 +1,7 @@
 import { InfiniteMovingCards } from "../ui/InfiniteMovingCards";
 import Image from "next/image";
 import { Skill } from "@/sanity/types";
+import { urlFor } from "@/sanity/lib/image";
 
 const TechStack = ({ skills }: { skills: Skill[] }) => {
   const directions: ("left" | "right")[] = ["right", "left"];
@@ -14,23 +15,21 @@ const TechStack = ({ skills }: { skills: Skill[] }) => {
           speed="slow"
           pauseOnHover={false}
         >
-          {skills.map(
-            ({ _createdAt, title, image, isDark }: Skill, i: number) => (
-              <li
-                key={i}
-                className="flex items-center justify-center rounded-md bg-muted/50 shadow p-3"
-              >
-                <Image
-                  src={image || ""}
-                  alt={title || "Tech Image"}
-                  width={40}
-                  height={40}
-                  className={`${isDark && "dark:invert"}`}
-                  priority={false}
-                />
-              </li>
-            )
-          )}
+          {skills.map(({ title, image, isDark }: Skill, i: number) => (
+            <li
+              key={i}
+              className="flex items-center justify-center rounded-md bg-muted/50 shadow p-3"
+            >
+              <Image
+                src={image ? urlFor(image).url() : "/image-placeholder.png"}
+                alt={title || "Tech Image"}
+                width={40}
+                height={40}
+                className={`${isDark && "dark:invert"}`}
+                priority={false}
+              />
+            </li>
+          ))}
         </InfiniteMovingCards>
       ))}
 

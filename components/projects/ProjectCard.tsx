@@ -2,14 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, SetStateAction } from "react";
-import { Button } from "../ui/button";
-import { ZoomIn, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { createPortal } from "react-dom";
 import { ProjectProps } from "@/types";
 import ProjectSkills from "./ProjectSkills";
-import LightboxContent from "./LightboxContent";
+import { urlFor } from "@/sanity/lib/image";
+
+const imageAnimationVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 1.05,
+    filter: "blur(12px)",
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.95,
+    filter: "blur(8px)",
+  },
+};
 
 const ProjectCard = ({
   project,
@@ -18,146 +32,62 @@ const ProjectCard = ({
   project: ProjectProps;
   index: number;
 }) => {
-  const [previewImage, setPreviewImage] = useState(project.image);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-
-  const toggleLightbox = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setLightboxOpen(!lightboxOpen);
-  };
+  const imageUrl = project.image
+    ? urlFor(project.image).url()
+    : "/image-placeholder.png";
 
   return (
-    <>
-      <div className="px-8 py-12 bg-muted/80 rounded-xl">
-        <div className="space-y-10">
-          <div className="flex justify-between items-center">
-            <h3 className=" text-lg font-semibold">{project.title}</h3>
-            <ProjectSkills project={project} />
-          </div>
+    <motion.div
+      className="px-8 py-12 bg-muted/80 rounded-xl"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.1,
+      }}
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      <div className="space-y-10">
+        <div className="flex justify-between items-center">
+          <h3 className="text-lg font-semibold">{project.title}</h3>
+          <ProjectSkills project={project} />
+        </div>
 
-          <div className="w-full h-full aspect-video rounded-lg relative overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={previewImage}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="w-full h-full"
-              >
-                <Link
-                  href={`/project/${project._id}`}
-                  className="block w-full h-full"
-                >
-                  <Image
-                    src={previewImage || "/images/placeholder.jpg"}
-                    alt={project.title || "Project Image"}
-                    width={500}
-                    height={500}
-                    className="object-cover aspect-video rounded-lg w-full h-full"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={index < 3}
-                  />
-                </Link>
-              </motion.div>
-            </AnimatePresence>
-
-            <Button
-              size="sm"
-              variant="secondary"
-              className="absolute bottom-2 right-2 z-10 border border-muted-foreground/80 p-2 shadow-lg"
-              onClick={toggleLightbox}
+        <div className="w-full h-full aspect-video rounded-lg relative overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={project._id}
+              initial="hidden"
+              whileInView="visible"
+              exit="exit"
+              variants={imageAnimationVariants}
+              transition={{
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+              viewport={{ once: true, amount: 0.3 }}
+              className="w-full h-full"
             >
-              <ZoomIn size={18} />
-            </Button>
-          </div>
-
-          {(project.sections?.length ?? 0) > 0 && (
-            <div className="flex gap-2 relative">
-              <div
-                className="w-full h-full cursor-pointer relative group overflow-hidden"
-                onClick={() => setPreviewImage(project.image)}
+              <Link
+                href={`/projects/${project._id}`}
+                className="block w-full h-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                aria-label={`View details for ${project.title || "project"}`}
               >
-                <div className="rounded-md border border-muted-foreground/60 overflow-hidden">
-                  <Image
-                    src={project.image || "/images/placeholder.jpg"}
-                    alt={project.title || "Project Image"}
-                    width={200}
-                    height={200}
-                    className="object-cover transition-transform duration-300 aspect-video group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
-                {previewImage !== project.image && (
-                  <div className="absolute inset-0 bg-black/50 rounded-md transition-all duration-300 group-hover:bg-black/30" />
-                )}
-                {previewImage === project.image && (
-                  <motion.div
-                    layoutId="selectedIndicator"
-                    className="absolute -bottom-1 inset-x-0 h-1.5 bg-primary rounded-full mx-1"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </div>
-
-              {project?.sections?.map(
-                (section, i) =>
-                  i < 3 && (
-                    <div
-                      key={i}
-                      className="w-full h-full cursor-pointer relative group overflow-hidden"
-                      onClick={() => setPreviewImage(section.image)}
-                    >
-                      <div className="rounded-md border border-muted-foreground/60 overflow-hidden">
-                        <Image
-                          src={section.image || "/images/placeholder.jpg"}
-                          alt={project.title || "Project Image"}
-                          width={500}
-                          height={500}
-                          className="object-cover transition-transform duration-300 aspect-video group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                      {previewImage !== section.image && (
-                        <div className="absolute inset-0 bg-black/50 rounded-md transition-all duration-300 group-hover:bg-black/30" />
-                      )}
-                      {previewImage === section.image && (
-                        <motion.div
-                          layoutId="selectedIndicator"
-                          className="absolute -bottom-1 inset-x-0 h-1.5 bg-primary rounded-full mx-1"
-                          transition={{
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 30,
-                          }}
-                        />
-                      )}
-                    </div>
-                  )
-              )}
-            </div>
-          )}
+                <Image
+                  src={imageUrl}
+                  alt={project.title || "Project Image"}
+                  width={500}
+                  height={500}
+                  className="object-cover aspect-video rounded-lg w-full h-full transition-transform hover:scale-105 duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={index < 3}
+                />
+              </Link>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
-
-      {mounted &&
-        createPortal(
-          <LightboxContent
-            project={project}
-            previewImage={previewImage || "/images/placeholder.jpg"}
-            lightboxOpen={lightboxOpen}
-            setLightboxOpen={setLightboxOpen}
-          />,
-          document.body
-        )}
-    </>
+    </motion.div>
   );
 };
 

@@ -12,7 +12,13 @@ import { motion } from "framer-motion";
 import AnimatedTitle from "../AnimatedTitle";
 import { getCurrentYear } from "@/lib/utils";
 
-const ProjectsHero = ({ projects }: { projects: ProjectProps[] }) => {
+const ProjectsHero = ({
+  projects,
+  skillsLength,
+}: {
+  projects: ProjectProps[];
+  skillsLength: number;
+}) => {
   const yearsOfExperience = getCurrentYear() - 2024;
   const projectsCount = projects.length;
 
@@ -36,7 +42,11 @@ const ProjectsHero = ({ projects }: { projects: ProjectProps[] }) => {
             icon={GiProgression}
             delay={0.3}
           />
-          <Box title={`10+ Technologies Used`} icon={BiCodeAlt} delay={0.5} />
+          <Box
+            title={`${skillsLength}+ Technologies Used`}
+            icon={BiCodeAlt}
+            delay={0.5}
+          />
         </div>
       </div>
     </Section>

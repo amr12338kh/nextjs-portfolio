@@ -70,7 +70,7 @@ export const groupProjectsByYear = (projects: ProjectProps[]) => {
   const groupedProjects: Record<string, ProjectProps[]> = {};
 
   projects.forEach((project) => {
-    const dateString = project._createdAt;
+    const dateString = project.createdAt;
 
     if (dateString) {
       const year = new Date(dateString).getFullYear().toString();

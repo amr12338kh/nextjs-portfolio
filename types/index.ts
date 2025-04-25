@@ -88,7 +88,10 @@ export interface ProjectProps {
   link: string;
   githubLink: string;
   skills: Skill[];
-  sections: SectionsProps[];
+  isActive: boolean;
+  isSoloProject: boolean;
+  releases: number;
+  features: [string];
 }
 
 export interface SkillProps {
@@ -146,4 +149,10 @@ export interface AnimatedTitleProps {
   titleClassName?: string;
   subtitleClassName?: string;
   containerClassName?: string;
+}
+
+export interface ProjectDetailsCardProps {
+  createdAt?: string;
+  isSolo: boolean;
+  releases: number;
 }

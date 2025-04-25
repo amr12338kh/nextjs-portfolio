@@ -14,14 +14,14 @@ export const ProjectsCarousel = ({
   mode = "latest",
   title,
   showExploreMore = false,
-  exploreMoreLink = "/project",
+  exploreMoreLink = "/projects",
 }: ProjectsCarouselProps) => {
   const displayProjects =
     mode === "latest"
       ? (projects as ProjectProps[])
           .sort((a, b) => {
-            const dateA = a._createdAt;
-            const dateB = b._createdAt;
+            const dateA = a.createdAt;
+            const dateB = b.createdAt;
 
             if (!dateA || !dateB) return 0;
             return new Date(dateB).getTime() - new Date(dateA).getTime();

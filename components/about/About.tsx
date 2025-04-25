@@ -1,7 +1,7 @@
 "use client";
 
 import GridItems from "./GridItems";
-import { contactLinks, aboutWords } from "@/data";
+import { aboutWords } from "@/data";
 import { CodeXml, Cpu, MapPin, MessagesSquare, User } from "lucide-react";
 import { LocationGlobe } from "./LocationGlobe";
 import Image from "next/image";

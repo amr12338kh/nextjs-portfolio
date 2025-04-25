@@ -5,6 +5,7 @@ import React from "react";
 import Hover from "../ui/Hover";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
 const ProjectSkills = ({ project }: { project: ProjectProps }) => {
   return (
@@ -22,7 +23,7 @@ const ProjectSkills = ({ project }: { project: ProjectProps }) => {
                 className={`z-10 bg-muted p-[6px] border border-muted-foreground/50 rounded-lg flex items-center`}
               >
                 <Image
-                  src={image || ""}
+                  src={image ? urlFor(image).url() : "/image-placeholder.png"}
                   alt={title || `Project Skill ${index}`}
                   width={18}
                   height={18}

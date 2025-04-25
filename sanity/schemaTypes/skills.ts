@@ -14,7 +14,10 @@ export const skills = defineType({
     {
       name: "image",
       title: "Image",
-      type: "url",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: "isDark",

@@ -27,7 +27,10 @@ export const project = defineType({
     defineField({
       name: "image",
       title: "Image",
-      type: "url",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
     }),
     defineField({
       name: "link",
@@ -46,7 +49,7 @@ export const project = defineType({
       of: [
         {
           type: "reference",
-          to: [{ type: "skill" }], // Assuming SkillsItemsProps corresponds to a "skill" document
+          to: [{ type: "skill" }],
         },
       ],
     }),
@@ -56,31 +59,30 @@ export const project = defineType({
       type: "url",
     }),
     defineField({
-      name: "sections",
-      title: "Sections",
+      name: "isSoloProject",
+      title: "Is Solo Project",
+      type: "boolean",
+    }),
+    defineField({
+      name: "releases",
+      title: "Releases",
+      type: "number",
+    }),
+    defineField({
+      name: "features",
+      title: "Key Features",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            {
-              name: "image",
-              title: "Image",
-              type: "url",
-            },
-            {
-              name: "text",
-              title: "Text",
-              type: "text",
-            },
-            {
-              name: "subText",
-              title: "Sub Text",
-              type: "string",
-            },
-          ],
-        },
-      ],
+      of: [{ type: "string" }],
+    }),
+    defineField({
+      name: "createdAt",
+      title: "Created At",
+      type: "datetime",
+    }),
+    defineField({
+      name: "isActive",
+      title: "Is Active",
+      type: "boolean",
     }),
   ],
   preview: {
