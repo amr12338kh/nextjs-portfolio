@@ -7,8 +7,56 @@ import { Analytics } from "@vercel/analytics/react";
 import { Manrope } from "next/font/google";
 
 export const metadata: Metadata = {
-  title: "Amr's Portfolio",
-  description: "Amr - Passionate Front-End Developer specializing in Next.js",
+  title: "Amr's Portfolio | Front-End Developer",
+  description:
+    "Amr - Passionate Front-End Developer specializing in Next.js, React, and modern web technologies. View my projects and expertise.",
+  keywords: [
+    "front-end developer",
+    "Next.js developer",
+    "React developer",
+    "web development",
+    "portfolio",
+    "Amr",
+  ],
+  authors: [{ name: "Amr" }],
+  creator: "Amr",
+  publisher: "Amr",
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    url: "https://amr-portfolio-dev.vercel.app",
+    title: "Amr's Portfolio | Front-End Developer",
+    description:
+      "Front-End Developer specializing in Next.js, React, and modern web technologies",
+    siteName: "Amr's Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Amr - Front-End Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amr's Portfolio | Front-End Developer",
+    description:
+      "Front-End Developer specializing in Next.js, React, and modern web technologies",
+    images: ["/og-image.png"],
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+  icons: {
+    icon: [{ url: "/svg/main-logo-black.svg" }],
+    apple: { url: "/svg/main-logo-black.svg" },
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 const getManrope = Manrope({
