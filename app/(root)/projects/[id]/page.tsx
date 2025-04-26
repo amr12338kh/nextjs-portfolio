@@ -9,15 +9,20 @@ import AnimatedTitle from "@/components/AnimatedTitle";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import UnderLine from "@/components/UnderLine";
-import { Metadata } from "next";
 import { urlFor } from "@/sanity/lib/image";
+
+interface ProjectPageProps {
+  params: {
+    id: string;
+  };
+}
 
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
-}): Promise<Metadata> {
-  const id = params.id;
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
 
   const project: ProjectProps = await client.fetch(PROJECT_QUERY, { id });
 

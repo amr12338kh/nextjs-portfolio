@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Manrope } from "next/font/google";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://amr-portfolio-dev.vercel.app"),
   title: "Amr's Portfolio | Front-End Developer",
   description:
     "Amr - Passionate Front-End Developer specializing in Next.js, React, and modern web technologies. View my projects and expertise.",
@@ -45,18 +46,10 @@ export const metadata: Metadata = {
       "Front-End Developer specializing in Next.js, React, and modern web technologies",
     images: ["/og-image.png"],
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
   icons: {
     icon: [{ url: "/svg/main-logo-black.svg" }],
     apple: { url: "/svg/main-logo-black.svg" },
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
 };
 
 const getManrope = Manrope({

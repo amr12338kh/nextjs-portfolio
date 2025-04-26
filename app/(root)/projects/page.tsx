@@ -3,9 +3,8 @@ import ProjectsHero from "@/components/projects/ProjectsHero";
 import { groupProjectsByYear } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
 import { ALL_PROJECTS_QUERY, ALL_SKILLS_QUERY } from "@/sanity/lib/queries";
-import { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
   const projects = await client.fetch(ALL_PROJECTS_QUERY);
 
   return {
