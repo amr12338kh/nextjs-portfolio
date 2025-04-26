@@ -8,6 +8,7 @@ import { ProjectProps } from "@/types";
 import { urlFor } from "@/sanity/lib/image";
 import ProjectLinks from "./ProjectLinks";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const ImagePreview = ({ project }: { project: ProjectProps }) => {
   return (
@@ -31,21 +32,23 @@ const ImagePreview = ({ project }: { project: ProjectProps }) => {
           duration: 0.5,
           ease: "easeOut",
         }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.1 }}
         className="aspect-video w-full bg-accent/20 rounded-lg flex items-center justify-center border border-border my-6 overflow-hidden"
       >
-        <Image
-          src={
-            project.image
-              ? urlFor(project.image).url()
-              : "/image-placeholder.png"
-          }
-          alt={project.title}
-          width={1300}
-          height={1300}
-          className="w-full h-full object-cover rounded-lg hover:scale-105 transition-all duration-200 ease-in-out"
-          property="false"
-        />
+        <Link href={project.link} target="_blank">
+          <Image
+            src={
+              project.image
+                ? urlFor(project.image).url()
+                : "/image-placeholder.png"
+            }
+            alt={project.title}
+            width={1300}
+            height={1300}
+            className="w-full h-full object-cover rounded-lg hover:scale-105 transition-all duration-200 ease-in-out"
+            property="false"
+          />
+        </Link>
       </motion.div>
 
       <div className="flex justify-end">
