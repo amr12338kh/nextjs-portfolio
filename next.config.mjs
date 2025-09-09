@@ -22,11 +22,7 @@ const nextConfig = {
       },
     ],
   },
-  devIndicators: {
-    appIsrStatus: true,
-    buildActivity: true,
-    buildActivityPosition: "bottom-right",
-  },
+  devIndicators: { position: "bottom-right" },
 };
 
 export default withSentryConfig(nextConfig, {

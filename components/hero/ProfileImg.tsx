@@ -50,24 +50,6 @@ const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
     },
   };
 
-  // Decorative elements animations
-  const decorVariants = {
-    initial: {
-      opacity: 0,
-      scale: 0,
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.4,
-        delay: 0.8,
-        type: "spring",
-        stiffness: 200,
-      },
-    },
-  };
-
   // Background glow animation
   const glowVariants = {
     initial: {
@@ -168,22 +150,6 @@ const ProfileImg = memo(({ isSmall = false }: ProfileImgProps) => {
       <motion.div
         className="absolute inset-0 -z-10 bg-gradient-to-tl from-purple-700 to-orange-700 blur-2xl"
         variants={glowVariants}
-        initial="initial"
-        animate="animate"
-      />
-
-      <motion.div
-        className="hidden lg:block dark:bg-dashes bg-dashes_light absolute z-20 top-60 right-58 w-[104px] h-[30px] bg-no-repeat"
-        aria-hidden="true"
-        variants={decorVariants}
-        initial="initial"
-        animate="animate"
-      />
-
-      <motion.div
-        className="hidden lg:block dark:bg-pluses bg-pluses_light absolute z-20 top-2 left-60 w-[50px] h-[56px] bg-no-repeat"
-        aria-hidden="true"
-        variants={decorVariants}
         initial="initial"
         animate="animate"
       />

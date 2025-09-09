@@ -9,12 +9,7 @@ const {
 
 const config = {
   darkMode: ["class"],
-  // content: [
-  //   "./pages/**/*.{ts,tsx}",
-  //   "./components/**/*.{ts,tsx}",
-  //   "./app/**/*.{ts,tsx}",
-  //   "./src/**/*.{ts,tsx}",
-  // ],
+
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -103,10 +98,6 @@ const config = {
       backgroundImage: {
         main_black: "url('/svg/main-logo-black.svg')",
         main_white: "url('/svg/main-logo-white.svg')",
-        pluses: "url('/svg/pluses.svg')",
-        dashes: "url('/svg/dashes.svg')",
-        pluses_light: "url('/svg/pluses-light.svg')",
-        dashes_light: "url('/svg/dashes-light.svg')",
       },
       keyframes: {
         scroll: {
