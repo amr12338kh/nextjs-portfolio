@@ -20,7 +20,7 @@ export default async function Home() {
         <Hero />
       </Section>
 
-      <Section id="about">
+      <Section id="about" className="!pt-8 !sm:pt-12">
         <About skills={skills} />
       </Section>
 

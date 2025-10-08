@@ -7,12 +7,10 @@ import UnderLine from "../UnderLine";
 
 const Hero = () => {
   return (
-    <div className="pt-10">
-      <div className="flex flex-col md:flex-row md:justify-between items-center sm:items-start md:items-center gap-8">
-        <ProfileImg isSmall />
-
+    <div className="pt-12 sm:pt-10">
+      <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center gap-8">
         <motion.div
-          className="max-w-md sm:max-w-lg lg:max-w-2xl text-center sm:text-start"
+          className="max-w-md sm:max-w-lg lg:max-w-2xl text-start"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -52,10 +50,12 @@ const Hero = () => {
             modern web technologies.
           </motion.div>
 
-          <UnderLine />
+          <UnderLine lineClassName="!mx-0" />
         </motion.div>
 
-        <ProfileImg />
+        <div className="hidden md:block">
+          <ProfileImg />
+        </div>
       </div>
     </div>
   );
