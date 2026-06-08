@@ -29,7 +29,7 @@ const itemVariants = {
     opacity: 1,
     transition: {
       delay: 1,
-      type: "spring",
+      type: "spring" as const,
       damping: 12,
       stiffness: 100,
     },
@@ -42,7 +42,7 @@ const fadeInVariants = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
   },
 };
@@ -74,7 +74,7 @@ const About = ({ skills }: { skills: Skill[] }) => {
             className="flex items-center h-full"
             variants={fadeInVariants}
           >
-            <motion.div className="font-medium text-center text-sm md:text-base">
+            <motion.div className="font-medium text-sm md:text-base">
               {aboutWords.split(" ").map((word, i) => (
                 <motion.span
                   key={i}
@@ -115,10 +115,7 @@ const About = ({ skills }: { skills: Skill[] }) => {
         </GridItems>
       </motion.div>
 
-      <motion.div
-        variants={itemVariants}
-        className="md:col-span-2 lg:col-span-3"
-      >
+      <motion.div variants={itemVariants} className="md:col-span-3">
         <GridItems
           icon={<Cpu size={16} />}
           title="Tech Stack"
@@ -142,7 +139,10 @@ const About = ({ skills }: { skills: Skill[] }) => {
         </GridItems>
       </motion.div>
 
-      <motion.div variants={itemVariants}>
+      <motion.div
+        variants={itemVariants}
+        className="md:col-span-5 lg:col-span-1"
+      >
         <GridItems
           icon={<CodeXml size={16} />}
           title="Framework"
@@ -155,15 +155,10 @@ const About = ({ skills }: { skills: Skill[] }) => {
               transition={{
                 delay: 0.5,
                 duration: 0.5,
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 100,
               }}
-              whileHover={{
-                scale: 1.1,
-                rotate: [0, -5, 5, -5, 0],
-                transition: { duration: 0.5 },
-              }}
-            >
+            > 
               <Image
                 src="/svg/next.svg"
                 alt="next.js"

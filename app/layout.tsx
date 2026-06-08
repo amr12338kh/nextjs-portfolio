@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/Themes/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import { Manrope } from "next/font/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://amr-portfolio-dev.vercel.app"),
@@ -52,12 +51,6 @@ export const metadata: Metadata = {
   },
 };
 
-const getManrope = Manrope({
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
-  style: ["normal"],
-  subsets: ["latin"],
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,14 +58,14 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en" className={getManrope.className}>
+      <html lang="en" suppressHydrationWarning>
         <link rel="icon" href="/svg/main-logo-black.svg" />
         <head />
-        <body className=" relative">
+        <body className="relative font-sans">
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="dark"
+            enableSystem={false}
             disableTransitionOnChange
           >
             <main>{children}</main>

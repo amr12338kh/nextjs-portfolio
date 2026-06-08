@@ -22,7 +22,7 @@ const ContactLinks = () => {
       opacity: 1,
       transition: {
         delay: index * 0.1,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 120,
         damping: 10,
       },
@@ -30,7 +30,7 @@ const ContactLinks = () => {
     hover: {
       x: 5,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 10,
       },

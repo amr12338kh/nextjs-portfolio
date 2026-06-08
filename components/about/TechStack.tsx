@@ -4,7 +4,7 @@ import { Skill } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 
 const TechStack = ({ skills }: { skills: Skill[] }) => {
-  const directions: ("left" | "right")[] = ["right", "left"];
+  const directions: ("left" | "right")[] = ["left", "right"];
 
   return (
     <div className="relative flex flex-col gap-6 py-6">
@@ -33,8 +33,8 @@ const TechStack = ({ skills }: { skills: Skill[] }) => {
         </InfiniteMovingCards>
       ))}
 
-      <div className="absolute top-0 right-0 z-20 bg-gradient-to-l from-background from-50% to-transparent h-full w-10 sm:w-16" />
-      <div className="absolute top-0 left-0 z-20 bg-gradient-to-r from-background from-50% to-transparent h-full w-10 sm:w-16" />
+      <div className="absolute top-0 right-0 z-20 bg-linear-to-l from-background from-50% to-transparent h-full w-10 sm:w-16" />
+      <div className="absolute top-0 left-0 z-20 bg-linear-to-r from-background from-50% to-transparent h-full w-10 sm:w-16" />
     </div>
   );
 };

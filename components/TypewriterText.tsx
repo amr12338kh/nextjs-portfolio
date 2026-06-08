@@ -53,7 +53,7 @@ export const TypewriterText = () => {
           }}
         >
           <span
-            className={`bg-gradient-to-r ${currentText.gradient} bg-clip-text text-transparent`}
+            className={`bg-linear-to-r ${currentText.gradient} bg-clip-text text-transparent`}
           >
             {currentText.text}
           </span>

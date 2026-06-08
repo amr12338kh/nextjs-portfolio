@@ -6,11 +6,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: string) {
+export function formatDate(date: string | Date, { day = true, month = true, year = true }: { day?: boolean; month?: boolean; year?: boolean }) {
   return new Date(date).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
+    month: month ? "long" : undefined,
+    day: day ? "numeric" : undefined,
+    year: year ? "numeric" : undefined,
   });
 }
 

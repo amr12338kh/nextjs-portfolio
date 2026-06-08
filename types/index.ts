@@ -92,6 +92,8 @@ export interface ProjectProps {
   isSoloProject: boolean;
   releases: number;
   features: [string];
+  categories: [string];
+  mainCategory: string;
 }
 
 export interface SkillProps {
@@ -131,8 +133,7 @@ export interface CarouselDotNavigationProps {
   api: CarouselApi | null;
 }
 
-export interface CarouselMobileNavigationProps
-  extends CarouselDotNavigationProps {
+export interface CarouselMobileNavigationProps extends CarouselDotNavigationProps {
   mode: "latest" | "yearly";
 }
 
@@ -145,6 +146,7 @@ export interface ProjectCarouselViewProps {
 export interface AnimatedTitleProps {
   title: string;
   subtitle?: string;
+  colored?: string;
   variant?: "primary" | "secondary" | "third";
   titleClassName?: string;
   subtitleClassName?: string;

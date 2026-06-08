@@ -10,7 +10,7 @@ const titleAnimation = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.6, ease: "easeOut" as const },
   },
 };
 
@@ -27,6 +27,7 @@ const AnimatedTitle = ({
   title,
   subtitle,
   variant = "primary",
+  colored,
   titleClassName,
   subtitleClassName,
   containerClassName,
@@ -40,11 +41,12 @@ const AnimatedTitle = ({
           viewport={{ once: true, amount: 0.3 }}
           transition={{ type: "spring", stiffness: 100 }}
           className={cn(
-            "text-4xl font-bold text-foreground tracking-tight",
-            titleClassName
+            "text-4xl sm:text-5xl font-bold text-foreground tracking-tight",
+            titleClassName,
           )}
         >
-          {title}
+          {title}{" "}
+          {colored && <span className="text-muted-foreground">{colored}</span>}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, x: -50 }}
@@ -52,8 +54,8 @@ const AnimatedTitle = ({
           viewport={{ once: true, amount: 0.3 }}
           transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
           className={cn(
-            "text-base sm:text-xl text-muted-foreground",
-            subtitleClassName
+            "text-base sm:text-lg max-w-2xl text-muted-foreground",
+            subtitleClassName,
           )}
         >
           {subtitle}
@@ -75,7 +77,7 @@ const AnimatedTitle = ({
           <motion.p
             className={cn(
               "text-xs sm:text-base font-medium line-clamp-2 max-w-[230px] sm:max-w-full",
-              subtitleClassName
+              subtitleClassName,
             )}
           >
             {subtitle.split(" ").map((word, i) => (
@@ -93,7 +95,7 @@ const AnimatedTitle = ({
         <h1
           className={cn(
             "text-3xl sm:text-4xl md:text-5xl font-bold text-primary",
-            titleClassName
+            titleClassName,
           )}
         >
           {title}
@@ -113,7 +115,7 @@ const AnimatedTitle = ({
       <h1
         className={cn(
           "text-3xl sm:text-4xl md:text-5xl font-bold text-primary",
-          titleClassName
+          titleClassName,
         )}
       >
         {title}
@@ -123,7 +125,7 @@ const AnimatedTitle = ({
         <motion.p
           className={cn(
             "text-base sm:text-xl text-muted-foreground",
-            subtitleClassName
+            subtitleClassName,
           )}
         >
           {subtitle.split(" ").map((word, i) => (

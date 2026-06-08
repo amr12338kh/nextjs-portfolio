@@ -1,7 +1,7 @@
 import Section from "@/components/Section";
 import Hero from "@/components/hero/Hero";
 import About from "@/components/about/About";
-import Projects from "@/components/projects/Projects";
+import FeaturedProjects from "@/components/projects/FeaturedProjects";
 import Testimonials from "@/components/Testimonials";
 import { client } from "@/sanity/lib/client";
 import { ALL_SKILLS_QUERY, ALL_TESTIMONIALS_QUERY } from "@/sanity/lib/queries";
@@ -16,16 +16,16 @@ export default async function Home() {
 
   return (
     <main>
-      <Section id="home" className="sm:!pt-40 sm:!pb-20">
+      <Section id="home" className="sm:pt-40! sm:pb-20!">
         <Hero />
       </Section>
 
-      <Section id="about" className="!pt-8 !sm:pt-12">
+      <Section id="about" className="pt-8! !sm:pt-12">
         <About skills={skills} />
       </Section>
 
       <Section id="projects">
-        <Projects />
+        <FeaturedProjects />
       </Section>
 
       {testimonials.length > 0 && (

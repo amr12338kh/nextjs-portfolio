@@ -43,6 +43,17 @@ export const project = defineType({
       type: "text",
     },
     defineField({
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({
+      name: "mainCategory",
+      title: "Main Category",
+      type: "string",
+    }),
+    defineField({
       name: "skills",
       title: "Skills",
       type: "array",

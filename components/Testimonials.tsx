@@ -23,7 +23,7 @@ const Testimonials = async ({
               index: number
             ) => (
               <li
-                className=" bg-primary-foreground w-[300px] sm:w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 px-4 sm:px-8 py-6 md:w-[450px]"
+                className=" bg-primary-foreground w-[300px] sm:w-[350px] max-w-full relative rounded-2xl border border-b-0 shrink-0 px-4 sm:px-8 py-6 md:w-[450px]"
                 key={index}
               >
                 <blockquote className="flex flex-col gap-4">
@@ -48,8 +48,8 @@ const Testimonials = async ({
             )
           )}
         </InfiniteMovingCards>
-        <div className="absolute top-0 right-0 z-20 bg-gradient-to-l from-background from-50% to-transparent h-full w-10 sm:w-16" />
-        <div className="absolute top-0 left-0 z-20 bg-gradient-to-r from-background from-50% to-transparent h-full w-10 sm:w-16" />
+        <div className="absolute top-0 right-0 z-20 bg-linear-to-l from-background from-50% to-transparent h-full w-10 sm:w-16" />
+        <div className="absolute top-0 left-0 z-20 bg-linear-to-r from-background from-50% to-transparent h-full w-10 sm:w-16" />
       </div>
     </>
   );

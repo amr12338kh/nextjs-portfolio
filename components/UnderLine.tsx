@@ -21,7 +21,7 @@ const UnderLine = ({
     >
       <motion.div
         className={cn(
-          "h-1 w-16 bg-primary mx-auto sm:mx-0 rounded-full",
+          "h-0.5 w-16 bg-muted-foreground mx-auto sm:mx-0 rounded-full",
           lineClassName
         )}
         initial={{ width: 0 }}

@@ -1,93 +1,82 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { ProjectProps } from "@/types";
-import ProjectSkills from "./ProjectSkills";
 import { urlFor } from "@/sanity/lib/image";
-
-const imageAnimationVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 1.05,
-    filter: "blur(12px)",
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    filter: "blur(0px)",
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    filter: "blur(8px)",
-  },
-};
+import { ChevronRight, ExternalLink, Github } from "lucide-react";
 
 const ProjectCard = ({
   project,
-  index,
+  dense = false,
 }: {
   project: ProjectProps;
-  index: number;
+  dense?: boolean;
 }) => {
   const imageUrl = project.image
     ? urlFor(project.image).url()
     : "/image-placeholder.png";
 
   return (
-    <motion.div
-      className="px-8 py-12 bg-muted/80 rounded-xl"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.4,
-        delay: index * 0.1,
-      }}
-      viewport={{ once: true, amount: 0.2 }}
+    <div
+      className={`group relative flex flex-col bg-card border border-border rounded-lg overflow-hidden transition-all duration-300 hover:border-muted-foreground hover:shadow-xl ${dense ? "h-full" : ""}`}
     >
-      <div className="space-y-10">
-        <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold">{project.title}</h3>
-          <ProjectSkills project={project} />
-        </div>
-
-        <div className="w-full h-full aspect-video rounded-lg relative overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={project._id}
-              initial="hidden"
-              whileInView="visible"
-              exit="exit"
-              variants={imageAnimationVariants}
-              transition={{
-                duration: 0.6,
-                ease: "easeOut",
-              }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="w-full h-full"
-            >
-              <Link
-                href={`/projects/${project._id}`}
-                className="block w-full h-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                aria-label={`View details for ${project.title || "project"}`}
-              >
-                <Image
-                  src={imageUrl}
-                  alt={project.title || "Project Image"}
-                  width={500}
-                  height={500}
-                  className="object-cover aspect-video rounded-lg w-full h-full transition-transform hover:scale-105 duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority={index < 3}
-                />
-              </Link>
-            </motion.div>
-          </AnimatePresence>
+      <div className="relative overflow-hidden h-56">
+        <img
+          src={imageUrl}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-card/80 via-transparent to-transparent opacity-60" />
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-background/80 backdrop-blur-md border border-border rounded-full text-foreground">
+            {project.mainCategory}
+          </span>
         </div>
       </div>
-    </motion.div>
+
+      <div className="p-6 flex flex-col grow">
+        <h3 className="text-2xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.skills.map((skill) => (
+            <span
+              key={skill._id}
+              className="text-[10px] font-mono text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10"
+            >
+              {skill.title}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between pt-4 border-t border-border">
+          <div className="flex gap-3">
+            <Link
+              href={project.githubLink}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Github size={16} />
+            </Link>
+            <Link
+              href={project.link}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ExternalLink size={16} />
+            </Link>
+          </div>
+          <Link
+            href={`/projects/${project._id}`}
+            className="text-[10px] font-bold uppercase tracking-widest text-primary hover:opacity-70 transition-all inline-flex items-center gap-1"
+          >
+            View More <ChevronRight size={12} />
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

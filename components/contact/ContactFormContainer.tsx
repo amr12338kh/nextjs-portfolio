@@ -49,7 +49,7 @@ export const ContactFormContainer = ({
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
         stiffness: 100,
       },
@@ -74,7 +74,7 @@ export const ContactFormContainer = ({
       opacity: 1,
       transition: {
         duration: 0.5,
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
         stiffness: 100,
       },
@@ -90,7 +90,7 @@ export const ContactFormContainer = ({
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         bounce: 0.5,
         duration: 0.3,
       },
@@ -106,7 +106,7 @@ export const ContactFormContainer = ({
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         bounce: 0.3,
         duration: 0.6,
         delay: i * 0.05,
@@ -125,12 +125,13 @@ export const ContactFormContainer = ({
       <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
         <motion.div variants={itemVariants} className="space-y-8">
           <AnimatedTitle
-            title="Contact Me"
+            title="Contact"
+            colored="Me"
             subtitle="Let's bring your ideas to life"
           />
           <UnderLine
             containerClassName="hidden md:block"
-            lineClassName="!mx-0"
+            lineClassName="mx-0!"
           />
 
           <motion.div
@@ -169,8 +170,8 @@ export const ContactFormContainer = ({
 
         <motion.div variants={itemVariants} className="space-y-6">
           <UnderLine
-            containerClassName="md:hidden !mt-0"
-            lineClassName="!mx-0"
+            containerClassName="md:hidden mt-0!"
+            lineClassName="mx-0!"
           />
           {children}
         </motion.div>

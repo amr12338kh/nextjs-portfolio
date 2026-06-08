@@ -19,7 +19,7 @@ const Hero = () => {
           }}
         >
           <motion.h1
-            className="font-medium text-lg sm:text-xl mb-1"
+            className="text-lg sm:text-xl mb-1"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -50,7 +50,7 @@ const Hero = () => {
             modern web technologies.
           </motion.div>
 
-          <UnderLine lineClassName="!mx-0" />
+          <UnderLine lineClassName="mx-0!" />
         </motion.div>
 
         <div className="hidden md:block">

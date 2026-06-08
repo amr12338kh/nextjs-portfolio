@@ -14,6 +14,8 @@ export const spotifyApi = axios.create({
   baseURL: "https://api.spotify.com/v1",
 });
 
+const SPOTIFY_PROFILE_ENDPOINT = "https://api.spotify.com/v1/me";
+
 export const getSpotifyAccessToken = async (): Promise<string> => {
   const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
   const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
@@ -25,7 +27,7 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
   }
 
   const basic = Buffer.from(
-    `${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`
+    `${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`,
   ).toString("base64");
 
   const maxRetries = 3;
@@ -42,7 +44,7 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
             Authorization: `Basic ${basic}`,
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       if (!response.data.access_token) {
@@ -60,12 +62,12 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
       }
       if (attempt < maxRetries) {
         console.warn(
-          `Retrying access token request (${attempt}/${maxRetries})...`
+          `Retrying access token request (${attempt}/${maxRetries})...`,
         );
         await new Promise((res) => setTimeout(res, 1000)); // wait 1 second before retrying
       } else {
         throw new Error(
-          `Failed to get Spotify access token after ${maxRetries} attempts`
+          `Failed to get Spotify access token after ${maxRetries} attempts`,
         );
       }
     }
@@ -73,14 +75,31 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
   throw new Error("Unexpected error during access token retrieval");
 };
 
+const isPremiumUser = async (accessToken: string): Promise<boolean> => {
+  try {
+    const response = await axios.get(SPOTIFY_PROFILE_ENDPOINT, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data.product === "premium";
+  } catch {
+    return false;
+  }
+};
+
 export const getNowPlaying = async (): Promise<NowPlayingItem | null> => {
   try {
     const accessToken = await getSpotifyAccessToken();
+    const premium = await isPremiumUser(accessToken);
+
+    if (!premium) {
+      return null; // if not premium treat it as offline
+    }
+
     spotifyApi.defaults.headers.common["Authorization"] =
       `Bearer ${accessToken}`;
 
     const response = await spotifyApi.get<SpotifyNowPlayingResponse>(
-      SPOTIFY_NOW_PLAYING_ENDPOINT
+      SPOTIFY_NOW_PLAYING_ENDPOINT,
     );
 
     if (response.status === 204 || !response.data) {

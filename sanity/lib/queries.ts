@@ -7,12 +7,20 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project" && defined(slug.current)
     title,
     slug,
     image,
+    tagline,
+    description,
+    link,
+    githubLink,
+    isActive,
+    isSoloProject,
     "skills": skills[]->{
       _id,
       title,
       image,
       isDark
     },
+    categories,
+    mainCategory,
   }`;
 
 export const PROJECT_QUERY = `*[_type == "project" && defined(slug.current) && _id == $id][0]
@@ -37,6 +45,8 @@ export const PROJECT_QUERY = `*[_type == "project" && defined(slug.current) && _
     releases,
     createdAt,
     features,
+    categories,
+    mainCategory,
   }`;
 
 export const LATEST_PROJECT_QUERY = `*[_type == "project" && defined(slug.current)] | order(_createdAt desc)[0]

@@ -74,6 +74,10 @@ export const InfiniteMovingCards = ({
     >
       <ul
         ref={scrollerRef}
+        style={{
+          animationDirection: direction === "left" ? "normal" : "reverse",
+          animationDuration: speed === "fast" ? "20s" : speed === "normal" ? "40s" : speed === "slow" ? "80s" : "100s"
+        }}
         className={cn(
           "flex min-w-full gap-2 sm:gap-4 w-max flex-nowrap",
           start && "animate-scroll ",

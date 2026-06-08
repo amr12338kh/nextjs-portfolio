@@ -1,72 +1,48 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import {
-  spotifyApi,
-  getSpotifyAccessToken,
-  SPOTIFY_NOW_PLAYING_ENDPOINT,
-} from "@/lib/spotify";
 import { NowPlayingItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 
 export const Spotify = ({ className }: { className?: string }) => {
   const [nowPlaying, setNowPlaying] = useState<NowPlayingItem | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
   const etagRef = useRef<string | null>(null);
   const POLLING_INTERVAL = 10000; // 10 seconds
 
   const fetchNowPlaying = useCallback(async () => {
     try {
-      setError(null);
-      const accessToken = await getSpotifyAccessToken();
-      spotifyApi.defaults.headers.common["Authorization"] =
-        `Bearer ${accessToken}`;
-
       const headers: Record<string, string> = etagRef.current
         ? { "If-None-Match": etagRef.current }
         : {};
 
-      const response = await spotifyApi.get(SPOTIFY_NOW_PLAYING_ENDPOINT, {
-        headers,
-      });
+      const response = await axios.get("/api/spotify", { headers });
 
       if (response.status === 304) {
         return; // Song hasn't changed, skip update
       }
 
-      if (response.data) {
-        etagRef.current = response.headers.etag;
+      const data = response.data;
 
-        // Check if the response corresponds to an ad
-        if (
-          !response.data.item ||
-          response.data.currently_playing_type === "ad"
-        ) {
-          setNowPlaying(null); // No song playing or it's an ad
-        } else {
-          const { item, is_playing } = response.data;
-          setNowPlaying({
-            albumImageUrl: item.album.images[0]?.url ?? "",
-            artist: item.artists
-              .map((artist: { name: string }) => artist.name)
-              .join(", "),
-            isPlaying: is_playing,
-            songUrl: item.external_urls.spotify,
-            title: item.name,
-          });
-        }
+      if (!data || !data.isPlaying) {
+        setNowPlaying(null); // No song playing or it's an ad
+      } else {
+        setNowPlaying(data as NowPlayingItem);
       }
+
+      // Store etag for next request to avoid unnecessary updates
+      const etag = response.headers["etag"];
+      if (etag) etagRef.current = etag;
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 304) {
+        return; // Song hasn't changed, skip update
+      }
       console.error("Error fetching now playing:", error);
-      setError(
-        error instanceof Error
-          ? error
-          : new Error("Failed to fetch now playing data")
-      );
+      setNowPlaying(null);
     } finally {
       setLoading(false);
     }
@@ -85,10 +61,6 @@ export const Spotify = ({ className }: { className?: string }) => {
         Spotify...
       </p>
     );
-  }
-
-  if (error) {
-    return <p>Error loading Spotify: {error.message}</p>;
   }
 
   if (!nowPlaying || !nowPlaying.isPlaying) {

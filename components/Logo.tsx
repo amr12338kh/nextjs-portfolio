@@ -18,12 +18,12 @@ const Logo = ({
   return (
     <div
       className={cn(
-        "bg-no-repeat",
+        "bg-no-repeat bg-center",
         className,
         sizes[size],
         inverse
-          ? "bg-main_white dark:bg-main_black"
-          : "dark:bg-main_white bg-main_black"
+          ? "bg-[url(/svg/main-logo-white.svg)] dark:bg-[url(/svg/main-logo-black.svg)]"
+          : "dark:bg-[url(/svg/main-logo-white.svg)] bg-[url(/svg/main-logo-black.svg)]"
       )}
     />
   );

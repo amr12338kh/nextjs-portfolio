@@ -9,16 +9,16 @@ const ProfileImg = memo(() => {
   const containerVariants = {
     initial: {
       scale: 0.8,
-      rotate: "-45deg",
+      rotate: "-45deg" as const,
       opacity: 0,
     },
     animate: {
       scale: 1,
-      rotate: "0deg",
+      rotate: "0deg" as const,
       opacity: 1,
       transition: {
         duration: 0.6,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
         delay: 0.2,
@@ -46,15 +46,15 @@ const ProfileImg = memo(() => {
   // Image blur animation
   const imageVariants = {
     initial: {
-      filter: "blur(20px)",
+      filter: "blur(20px)" as const,
       scale: 1.1,
     },
     animate: {
-      filter: "blur(0px)",
+      filter: "blur(0px)" as const,
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
@@ -67,7 +67,7 @@ const ProfileImg = memo(() => {
       animate="animate"
     >
       <motion.div
-        className="rounded-full bg-primary dark:bg-[#000] p-6"
+        className="rounded-full bg-primary dark:bg-black p-6"
         role="img"
         aria-label="Amr's Profile Picture"
         initial={{ opacity: 0 }}
@@ -90,9 +90,9 @@ const ProfileImg = memo(() => {
       </motion.div>
 
       <motion.div
-        className="absolute inset-0 -z-10 bg-gradient-to-tl from-purple-700 to-orange-700 blur-lg"
+        className="absolute inset-0 -z-10 bg-linear-to-tl from-purple-700 to-orange-700 blur-lg"
         variants={glowVariants}
-        initial="initial"
+        initial="initial" 
         animate="animate"
       />
     </motion.div>

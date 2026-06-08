@@ -5,6 +5,7 @@ import { client } from "@/sanity/lib/client";
 import { ALL_TESTIMONIALS_QUERY } from "@/sanity/lib/queries";
 import { getGitHubStats } from "@/lib/github";
 
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -18,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-5 xl:px-0 ">
-      <Header isTestimonials={isTestimonials} />
+        <Header isTestimonials={isTestimonials} />
       {children}
       <Footer
         isTestimonials={isTestimonials}

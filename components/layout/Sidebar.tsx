@@ -34,7 +34,7 @@ const Sidebar = ({ isTestimonials }: { isTestimonials: boolean }) => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="w-[300px] p-0 border-r shadow-lg backdrop-blur-sm bg-background/95"
+        className="w-75 p-0 border-r shadow-lg backdrop-blur-sm bg-background/95"
       >
         <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-muted">
           <SheetHeader className="space-y-6 p-6">
