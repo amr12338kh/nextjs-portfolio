@@ -2,7 +2,7 @@
 
 Welcome to my personal portfolio! This portfolio is a reflection of my journey as a **front-end developer**, showcasing my skills, projects, and professional experiences. Built with cutting-edge technologies like **Next.js**, **TypeScript**, **Tailwind CSS**, and **Shadcn UI**, this site highlights my passion for creating sleek, responsive, and user-friendly web applications.
 
-[![Portfolio Screenshot](public/amr-portfolio-img.png)](https://amr-portfolio-dev.vercel.app/)
+[![Portfolio Screenshot](public/thumbnail-2.jpg)](https://amr-portfolio-dev.vercel.app/)
 
 ## Live Demo
 
