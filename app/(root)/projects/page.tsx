@@ -1,6 +1,6 @@
 import AllProjects from "@/components/projects/AllProjects";
 import { client } from "@/sanity/lib/client";
-import { ALL_PROJECTS_QUERY, ALL_SKILLS_QUERY } from "@/sanity/lib/queries";
+import { ALL_PROJECTS_QUERY } from "@/sanity/lib/queries";
 
 export async function generateMetadata() {
   const projects = await client.fetch(ALL_PROJECTS_QUERY);
@@ -30,10 +30,7 @@ export async function generateMetadata() {
 }
 
 const page = async () => {
-  const [projects, skills] = await Promise.all([
-    await client.fetch(ALL_PROJECTS_QUERY),
-    await client.fetch(ALL_SKILLS_QUERY),
-  ]);
+  const [projects] = await client.fetch(ALL_PROJECTS_QUERY);
 
   return (
     <main>
