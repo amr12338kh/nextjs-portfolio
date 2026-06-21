@@ -30,7 +30,7 @@ export async function generateMetadata() {
 }
 
 const page = async () => {
-  const [projects] = await client.fetch(ALL_PROJECTS_QUERY);
+  const projects = await client.fetch(ALL_PROJECTS_QUERY);
 
   return (
     <main>
