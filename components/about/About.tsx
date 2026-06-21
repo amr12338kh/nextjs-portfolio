@@ -2,13 +2,14 @@
 
 import GridItems from "./GridItems";
 import { aboutWords } from "@/data";
-import { CodeXml, Cpu, MapPin, MessagesSquare, User } from "lucide-react";
+import { Cpu, FileText, MapPin, MessagesSquare, User } from "lucide-react";
 import { LocationGlobe } from "./LocationGlobe";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import TechStack from "./TechStack";
 import { Skill } from "@/sanity/types";
 import ContactLinks from "./ContactLinks";
+import Resume from "./Resume";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -144,30 +145,12 @@ const About = ({ skills }: { skills: Skill[] }) => {
         className="md:col-span-5 lg:col-span-1"
       >
         <GridItems
-          icon={<CodeXml size={16} />}
-          title="Framework"
-          des="The best framework in the field right now"
+          icon={<FileText size={16} />}
+          title="Resume"
+          des="View or download my resume to see my full experience and skills."
+          className="justify-normal"
         >
-          <div className="flex justify-center items-center relative h-full">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.5,
-                duration: 0.5,
-                type: "spring" as const,
-                stiffness: 100,
-              }}
-            > 
-              <Image
-                src="/svg/next.svg"
-                alt="next.js"
-                width={150}
-                height={150}
-                className="dark:invert"
-              />
-            </motion.div>
-          </div>
+          <Resume />
         </GridItems>
       </motion.div>
     </motion.div>
